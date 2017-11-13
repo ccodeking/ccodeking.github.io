@@ -1,37 +1,39 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>²Ä¤G³¹:¬yµ{±±¨î</title>
+<title>ç¬¬äºŒç« :æµç¨‹æŽ§åˆ¶</title>
 </HEAD>
 
 
-<h2 align=center>²Ä¤G³¹:¬yµ{±±¨î</h2>
-<h3 align=left>²Ä¤@¸`:IF-ELSE</h3>
+<h2 align=center>ç¬¬äºŒç« :æµç¨‹æŽ§åˆ¶</h2>
+<h3 align=left>ç¬¬ä¸€ç¯€:IF-ELSE</h3>
 
-¨S¦³¬yµ{±±¨îªº¸Ü, µ{¦¡¥u¯à¤@¦æ¤@¦æªº«ö¶¶§Ç¶]¨ì§À.
-¬yµ{±±¨î¥i¥HÅý³]­p®v¦bµ{¦¡¤¤¯àÀH®É¿ï¾Ü­n¸õ¹L¬Y¨Çµ{¦¡½X¤£°õ¦æ.
+æ²’æœ‰æµç¨‹æŽ§åˆ¶çš„è©±, ç¨‹å¼åªèƒ½ä¸€è¡Œä¸€è¡Œçš„æŒ‰é †åºè·‘åˆ°å°¾.
+æµç¨‹æŽ§åˆ¶å¯ä»¥è®“è¨­è¨ˆå¸«åœ¨ç¨‹å¼ä¸­èƒ½éš¨æ™‚é¸æ“‡è¦è·³éŽæŸäº›ç¨‹å¼ç¢¼ä¸åŸ·è¡Œ.
 <p>
-½d¨Ò:³o¬O¤@­Ó«Ü¥Î²Ê²¤ªº¤èªk¨Ó§PÂ_¤@­Ó¤H¬O¤£¬O¹L­«ªºµ{¦¡
+ç¯„ä¾‹:é€™æ˜¯ä¸€å€‹å¾ˆç”¨ç²—ç•¥çš„æ–¹æ³•ä¾†åˆ¤æ–·ä¸€å€‹äººæ˜¯ä¸æ˜¯éŽé‡çš„ç¨‹å¼
 <pre>
 #include < stdio.h >
 void main(void)
 {
 	int weight;
 	printf("Input your weight:");
-	// Åª¤JÅé­«
+	// è®€å…¥é«”é‡
 	scanf("%d",&weight);
 	if ( weight > 100 )
 	{
-	// °²¦pÅé­«¤j©ó100¤½¤ç, ´N»¡³o­Ó¤H¤Ó­D¤F	
+	// å‡å¦‚é«”é‡å¤§æ–¼100å…¬æ–¤, å°±èªªé€™å€‹äººå¤ªèƒ–äº†	
 		printf("You're too fat\n");
 	}
 	else
 	{
-	// °²¦pÅé­«¨S¦³¤j©ó100¤½¤ç, ³o­Ó¤H´NÁÙ¦n
+	// å‡å¦‚é«”é‡æ²’æœ‰å¤§æ–¼100å…¬æ–¤, é€™å€‹äººå°±é‚„å¥½
 		printf("You're ok.\n");
 	}
 }
 </pre>
-if ( )ªº¤p¬A¸¹¤¤©ñªº¬O¤@­ÓÅÞ¿èªº§PÂ_, ·í§PÂ_¦¨¥ß®É, ±µ¤U¨Ó¦b{ }·í¤¤ªºµ{¦¡½X´N·|³Q°õ¦æ.<br>
+if ( )çš„å°æ‹¬è™Ÿä¸­æ”¾çš„æ˜¯ä¸€å€‹é‚è¼¯çš„åˆ¤æ–·, ç•¶åˆ¤æ–·æˆç«‹æ™‚, æŽ¥ä¸‹ä¾†åœ¨{ }ç•¶ä¸­çš„ç¨‹å¼ç¢¼å°±æœƒè¢«åŸ·è¡Œ.<br>
 example:
 
 <pre>
@@ -42,48 +44,48 @@ void main(void)
 	scanf("%d", &weight);
 	if ( weight>100 )
 	{
-	// ·íweight­È>100®É, { }¤¤ªºprintf´N·|°õ¦æ
+	// ç•¶weightå€¼>100æ™‚, { }ä¸­çš„printfå°±æœƒåŸ·è¡Œ
 		printf("You're too fat\n");
 	}
 }
 </pre>
-¥[¤Welse { }, «h¬O·|¦b§PÂ_¤£¦¨¥ß®É, °õ¦æ{ }·í¤¤ªºµ{¦¡½X.
-­Y¨S¦³¥[else, «h¥Nªí§PÂ_¤£¦¨¥ß®É¤£¯S§O¥h°µ¥ô¦ó¨Æ.
+åŠ ä¸Šelse { }, å‰‡æ˜¯æœƒåœ¨åˆ¤æ–·ä¸æˆç«‹æ™‚, åŸ·è¡Œ{ }ç•¶ä¸­çš„ç¨‹å¼ç¢¼.
+è‹¥æ²’æœ‰åŠ else, å‰‡ä»£è¡¨åˆ¤æ–·ä¸æˆç«‹æ™‚ä¸ç‰¹åˆ¥åŽ»åšä»»ä½•äº‹.
 <p>
-ÅÞ¿è§PÂ_¥i¥H¨Ï¥Îªº¹Bºâ²Å¸¹¦p¤U
+é‚è¼¯åˆ¤æ–·å¯ä»¥ä½¿ç”¨çš„é‹ç®—ç¬¦è™Ÿå¦‚ä¸‹
 <table border=1>
 <tr><td>
-¹Bºâ²Å¸¹
+é‹ç®—ç¬¦è™Ÿ
 <td>
-·N¸q
+æ„ç¾©
 <tr><td>
 >
 <td>
-¤j©ó
+å¤§æ–¼
 <tr><td>
 <
 <td>
-¤p©ó
+å°æ–¼
 <tr><td>
 >=
 <td>
-¤j©ó©Îµ¥©ó
+å¤§æ–¼æˆ–ç­‰æ–¼
 <tr><td>
 <=
 <td>
-¤p©ó©Îµ¥©ó
+å°æ–¼æˆ–ç­‰æ–¼
 <tr><td>
 ==
 <td>
-µ¥©ó
+ç­‰æ–¼
 <tr><td>
 !=
 <td>
-¤£µ¥©ó
+ä¸ç­‰æ–¼
 </table>
 <p>
-if ( ) ¬A¸¹¤¤ªº¥i¥H¦P®É©ñ«Ü¦h­Ó§PÂ_¦¡¤l.<br>
-½d¨Ò:¤@­Ó¤H­Y¨­°ª§C©ó180¤½¤À, ¦Ó¥BÅé­«¤j©ó100¤½¤çªº¸Ü, ¥L´N¬O¤Ó­D¤F.
+if ( ) æ‹¬è™Ÿä¸­çš„å¯ä»¥åŒæ™‚æ”¾å¾ˆå¤šå€‹åˆ¤æ–·å¼å­.<br>
+ç¯„ä¾‹:ä¸€å€‹äººè‹¥èº«é«˜ä½Žæ–¼180å…¬åˆ†, è€Œä¸”é«”é‡å¤§æ–¼100å…¬æ–¤çš„è©±, ä»–å°±æ˜¯å¤ªèƒ–äº†.
 <pre>
 #include < stdio.h >
 void main(void)
@@ -94,8 +96,8 @@ void main(void)
 	scanf("%d %d", &height, &weight);
 	
 	if ( height<180 && weight>100 )
-	//              ^^  ³o¬O¦Ó¥Bªº·N«ä
-	//³oùØ­n°µªº§PÂ_´N¬O, ¬Ý¬Ýheight¬O¤£¬O¤p©ó180¦Ó¥Bweight¤S¤j©ó100
+	//              ^^  é€™æ˜¯è€Œä¸”çš„æ„æ€
+	//é€™è£è¦åšçš„åˆ¤æ–·å°±æ˜¯, çœ‹çœ‹heightæ˜¯ä¸æ˜¯å°æ–¼180è€Œä¸”weightåˆå¤§æ–¼100
 	{
 		printf("You're too fat.\n");
 	}
@@ -106,24 +108,24 @@ void main(void)
 }
 </pre>
 
-¥Î¨Ó³sµ²ÅÞ¿è§PÂ_ªº²Å¸¹¦³:
+ç”¨ä¾†é€£çµé‚è¼¯åˆ¤æ–·çš„ç¬¦è™Ÿæœ‰:
 <table border=1>
 <tr><td>
-²Å¸¹
+ç¬¦è™Ÿ
 <td>
-·N¸q
+æ„ç¾©
 <tr><td>
 &&
 <td>
-"¦Ó¥B", ©Ò¦³ªº±ø¥ó³£­n¦¨¥ß, ¾ã­Ó§PÂ_¤~·|¦¨¥ß
+"è€Œä¸”", æ‰€æœ‰çš„æ¢ä»¶éƒ½è¦æˆç«‹, æ•´å€‹åˆ¤æ–·æ‰æœƒæˆç«‹
 <tr><td>
 ||
 <td>
-"©Î", ¥u­n¦³¥ô¦ó¤@­Ó±ø¥ó¦¨¥ß, ¾ã­Ó§PÂ_´N·|¦¨¥ß
+"æˆ–", åªè¦æœ‰ä»»ä½•ä¸€å€‹æ¢ä»¶æˆç«‹, æ•´å€‹åˆ¤æ–·å°±æœƒæˆç«‹
 </table>
 <p>
-¦³¤@­Ó¤ñ¸û¯S§Oªº²Å¸¹¥s°µÅÞ¿è¤Ï¬Û, ¥¦·|ª½±µ§â¤@­Ó"¦¨¥ß"ªº±ø¥óÂà¦¨"¤£¦¨¥ß",
-§â"¤£¦¨¥ß"ªº±ø¥óª½±µ·í¦¨"¦¨¥ß".ÅÞ¿è¤Ï¬Ûªº¹Bºâ²Å¸¹¬O¤@­ÓÅå¹Ä¸¹"!".<br>
+æœ‰ä¸€å€‹æ¯”è¼ƒç‰¹åˆ¥çš„ç¬¦è™Ÿå«åšé‚è¼¯åç›¸, å®ƒæœƒç›´æŽ¥æŠŠä¸€å€‹"æˆç«‹"çš„æ¢ä»¶è½‰æˆ"ä¸æˆç«‹",
+æŠŠ"ä¸æˆç«‹"çš„æ¢ä»¶ç›´æŽ¥ç•¶æˆ"æˆç«‹".é‚è¼¯åç›¸çš„é‹ç®—ç¬¦è™Ÿæ˜¯ä¸€å€‹é©šå˜†è™Ÿ"!".<br>
 example:
 <pre>
 #include < stdio.h >
@@ -132,7 +134,7 @@ void main(void)
 	int weight;
 	scanf("%d",&weight);
 	if ( !(weight<100) )
-	// ¥Ü½dÅå¹Ä¸¹!¦p¦ó¨Ï¥Î
+	// ç¤ºç¯„é©šå˜†è™Ÿ!å¦‚ä½•ä½¿ç”¨
 	{
 		printf("You're too fat\n");
 	}
@@ -144,8 +146,8 @@ void main(void)
 </pre>
 
 <p>
-­Y§Ú­Ì­n§PÂ_ªº±ø¥ó¤£¥u¬O°µ"¹ï"©Î"¿ù"ªº¤G¤Àªk®É, ¥i¥H¥Îif--else if¨Ó°µ¦h­«§PÂ_.<br>
-½d¨Ò:Åª¤J¦Ò¸Õ¦¨ÁZ, §PÂ_³o­Ó¤À¼Æªºµ¥¯Å¬OA/B/C/D/Eªº¨º­Óµ¥¯Å.
+è‹¥æˆ‘å€‘è¦åˆ¤æ–·çš„æ¢ä»¶ä¸åªæ˜¯åš"å°"æˆ–"éŒ¯"çš„äºŒåˆ†æ³•æ™‚, å¯ä»¥ç”¨if--else ifä¾†åšå¤šé‡åˆ¤æ–·.<br>
+ç¯„ä¾‹:è®€å…¥è€ƒè©¦æˆç¸¾, åˆ¤æ–·é€™å€‹åˆ†æ•¸çš„ç­‰ç´šæ˜¯A/B/C/D/Eçš„é‚£å€‹ç­‰ç´š.
 
 <pre>
 #include < stdio.h >
@@ -156,27 +158,27 @@ void main(void)
 	printf("Input your points:\n");
 	scanf("%d", &points);
 	if ( points>=90 && points<=100 )
-	// ¤À¼Æ¦b90..100¤À¶¡ªº¬OA
+	// åˆ†æ•¸åœ¨90..100åˆ†é–“çš„æ˜¯A
 	{
 		level='A';
 	}
 	else if ( points>=80 && points<90 )
-	// ¤À¼Æ¦b80..89¤À¶¡ªº¬OB
+	// åˆ†æ•¸åœ¨80..89åˆ†é–“çš„æ˜¯B
 	{
 		level='B';
 	}
 	else if ( points>=70 && points<80 )
-	// ¤À¼Æ¦b70..79¤À¶¡ªº¬OC
+	// åˆ†æ•¸åœ¨70..79åˆ†é–“çš„æ˜¯C
 	{
 		level='C';
 	}
 	else if ( points>=60 && points<70 )
-	// ¤À¼Æ¦b60..69¤À¶¡ªº¬OD
+	// åˆ†æ•¸åœ¨60..69åˆ†é–“çš„æ˜¯D
 	{
 		level='D';
 	}
 	else
-	// ³Ñ¤Uªº´N¬O60¤À¥H¤Uªº, µ¥¯Å¬OE.
+	// å‰©ä¸‹çš„å°±æ˜¯60åˆ†ä»¥ä¸‹çš„, ç­‰ç´šæ˜¯E.
 	{
 		level='E';
 	}
@@ -184,8 +186,8 @@ void main(void)
 }
 </pre>
 
-if () { } ªº¤j¬A¸¹¤¤·í¤¤¥i¥H©ó¤J¥ô¦óªºµ{¦¡½X, ©Ò¥H·íµM¥i¥H¦A©ñ¥t¤@­Óif¶i¥h.
-³o­Ó¥s°µ±_ª¬µ²ºc.<br>
+if () { } çš„å¤§æ‹¬è™Ÿä¸­ç•¶ä¸­å¯ä»¥æ–¼å…¥ä»»ä½•çš„ç¨‹å¼ç¢¼, æ‰€ä»¥ç•¶ç„¶å¯ä»¥å†æ”¾å¦ä¸€å€‹ifé€²åŽ».
+é€™å€‹å«åšå·¢ç‹€çµæ§‹.<br>
 example:
 <pre>
 #include < stdio.h >
@@ -211,7 +213,7 @@ void main(void)
 }
 </pre>
 <p>
-½d¨Ò:Åª¤J¤@­Ó¤GºûªÅ¶¡ªº®y¼Ð, §PÂ_¥¦¦b­þ­Ó¶H­­¤W.
+ç¯„ä¾‹:è®€å…¥ä¸€å€‹äºŒç¶­ç©ºé–“çš„åº§æ¨™, åˆ¤æ–·å®ƒåœ¨å“ªå€‹è±¡é™ä¸Š.
 <pre>
 #include < stdio.h >
 void main(void)
@@ -256,10 +258,10 @@ void main(void)
 }
 </pre>
 <p>
-<h3>²Ä¤G¸`:SWITCH--CASE</h3>
-¦pªG¦h­«if--else if¤¤³£¬O¦b§PÂ_¨â­Ó¼Æ¦r¬O§_"¬Ûµ¥", ¥i¥H§ï¥Îswitch-case¨Ó¼g.<br>
-½d¨Ò, ¿é¤J¨â­Ó¼Æ¦r, ¦AÁä¤J+,-,*,/¥ô¤@Áä, ¥ÑÁä¤JªºÁä¨Ó¨M©w­n¹ï«e­±ªº¨â­Ó¼Æ¦r¨Ó°µ
-+©Î-©Î*©Î/
+<h3>ç¬¬äºŒç¯€:SWITCH--CASE</h3>
+å¦‚æžœå¤šé‡if--else ifä¸­éƒ½æ˜¯åœ¨åˆ¤æ–·å…©å€‹æ•¸å­—æ˜¯å¦"ç›¸ç­‰", å¯ä»¥æ”¹ç”¨switch-caseä¾†å¯«.<br>
+ç¯„ä¾‹, è¼¸å…¥å…©å€‹æ•¸å­—, å†éµå…¥+,-,*,/ä»»ä¸€éµ, ç”±éµå…¥çš„éµä¾†æ±ºå®šè¦å°å‰é¢çš„å…©å€‹æ•¸å­—ä¾†åš
++æˆ–-æˆ–*æˆ–/
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -295,7 +297,7 @@ void main(void)
 	printf("%f%c%f=%f\n",a,key,b,ans);
 }
 </pre>
-¤W­±ªº¦h­«§PÂ_¥i¥H¥Îswitch--case¨Ó§ï¼g¦p¤U:
+ä¸Šé¢çš„å¤šé‡åˆ¤æ–·å¯ä»¥ç”¨switch--caseä¾†æ”¹å¯«å¦‚ä¸‹:
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -329,12 +331,12 @@ void main(void)
 	printf("%f%c%f=%f\n",a,key,b,ans);
 }
 </pre>
-switch--case·|®Ú¾Úkeyªº­È§ä¥Xµ{¦¡­n±q­þ¤@¦æªºcaseµ{¦¡½X¨ÓÄ~Äò°õ¦æ,
-µ{¦¡·|±q§ä¨ìªº¨º¤@­Ócase¶}©l¦V¤U¶], ¤@ª½¨ì¹J¨£break¬°¤î, ©Ò¥H, ­Y
-¨â­Ócase¤§¶¡¨S¦³¥[break, ¨º¥i¯à·|¥X²{¦h¶]¤F¤@¨Çµ{¦¡½Xªº±¡§Î.
-breakªº¥\¯à¬O¥Î¨Ó¸õ¥X¤@¬q¦b{ }¤§¤¤µ{¦¡½X
+switch--caseæœƒæ ¹æ“škeyçš„å€¼æ‰¾å‡ºç¨‹å¼è¦å¾žå“ªä¸€è¡Œçš„caseç¨‹å¼ç¢¼ä¾†ç¹¼çºŒåŸ·è¡Œ,
+ç¨‹å¼æœƒå¾žæ‰¾åˆ°çš„é‚£ä¸€å€‹caseé–‹å§‹å‘ä¸‹è·‘, ä¸€ç›´åˆ°é‡è¦‹breakç‚ºæ­¢, æ‰€ä»¥, è‹¥
+å…©å€‹caseä¹‹é–“æ²’æœ‰åŠ break, é‚£å¯èƒ½æœƒå‡ºç¾å¤šè·‘äº†ä¸€äº›ç¨‹å¼ç¢¼çš„æƒ…å½¢.
+breakçš„åŠŸèƒ½æ˜¯ç”¨ä¾†è·³å‡ºä¸€æ®µåœ¨{ }ä¹‹ä¸­ç¨‹å¼ç¢¼
 <br>
-½d¨Ò:
+ç¯„ä¾‹:
 <pre>
 #include <conio.h>
 void main(void)
@@ -348,7 +350,7 @@ void main(void)
 	case 'a':
 		printf("You press a\n");
 		break;
-	// ¦pªG«ö¤Uªº¬O'A', ¨ºµ{¦¡·|¦L¥X¨â¦æªF¦è, ¤@ª½¨ì¬Ý¨ì¤W­±³o­Óbreak¬°¤î	
+	// å¦‚æžœæŒ‰ä¸‹çš„æ˜¯'A', é‚£ç¨‹å¼æœƒå°å‡ºå…©è¡Œæ±è¥¿, ä¸€ç›´åˆ°çœ‹åˆ°ä¸Šé¢é€™å€‹breakç‚ºæ­¢	
 	case 'B':
 		printf("You press B\n");
 		break;		
@@ -358,15 +360,15 @@ void main(void)
 	}
 }
 </pre>
-switch-caseªº­­¨î:
+switch-caseçš„é™åˆ¶:
 <ul>
 <li>
-case «á­±©ñªº¼Æ­È¤£¯à¬OÅÜ¼Æ, ¤@©w­n¬O©w­È
+case å¾Œé¢æ”¾çš„æ•¸å€¼ä¸èƒ½æ˜¯è®Šæ•¸, ä¸€å®šè¦æ˜¯å®šå€¼
 <li>
-case «á­±¤£¯à©ñ¤@­Ó§PÂ_¦¡.
+case å¾Œé¢ä¸èƒ½æ”¾ä¸€å€‹åˆ¤æ–·å¼.
 </ul>
 
-½d¨Ò:§â¤W­±§P§O¦¨ÁZµ¥¯Åªºµ{¦¡§ï¥Îswitch-case¨Ó¼g
+ç¯„ä¾‹:æŠŠä¸Šé¢åˆ¤åˆ¥æˆç¸¾ç­‰ç´šçš„ç¨‹å¼æ”¹ç”¨switch-caseä¾†å¯«
 <pre>
 #include < stdio.h >
 
@@ -403,9 +405,9 @@ void main(void)
 }
 </pre>
 
-<h3>²Ä¤T¸`:IF§PÂ_¦¡ªººëÂ²¼gªk</h3>
-if ( ) ¬A¸¹¤¤, ¤£¤@©w­n©ñ¤@­Ó§PÂ_¦¡¶i¥h, §Ú­Ì¥i¥Hª½±µ¥N¤J¤@­Ó¼Æ­È,
-·í¼Æ­È¬O0®É, if ´N¤£·|¦¨¥ß, ·í¼Æ­È¤£¬O0®É, if ´N·|¦¨¥ß.<br>
+<h3>ç¬¬ä¸‰ç¯€:IFåˆ¤æ–·å¼çš„ç²¾ç°¡å¯«æ³•</h3>
+if ( ) æ‹¬è™Ÿä¸­, ä¸ä¸€å®šè¦æ”¾ä¸€å€‹åˆ¤æ–·å¼é€²åŽ», æˆ‘å€‘å¯ä»¥ç›´æŽ¥ä»£å…¥ä¸€å€‹æ•¸å€¼,
+ç•¶æ•¸å€¼æ˜¯0æ™‚, if å°±ä¸æœƒæˆç«‹, ç•¶æ•¸å€¼ä¸æ˜¯0æ™‚, if å°±æœƒæˆç«‹.<br>
 
 <pre>
 #include < stdio.h >
@@ -413,7 +415,7 @@ void main(void)
 {
 	int a=5;
 	
-	// ¥u­naªº¼Æ­È¤£¬O0, ¤U­±ªºif´N·|¦¨¥ß
+	// åªè¦açš„æ•¸å€¼ä¸æ˜¯0, ä¸‹é¢çš„ifå°±æœƒæˆç«‹
 	if ( a )
 	{
 		printf("TRUE\n");
@@ -425,17 +427,17 @@ void main(void)
 }
 </pre>
 
-¨Æ¹ê¤W, ÅÞ¿è§PÂ_¦¡³£·|¯d¤U¤@­Ó¼Æ¦r, 1¥NªíTrue(¦¨¥ß), 0¥NªíFalse(¤£¦¨¥ß)<br>
-½d¨Ò:
+äº‹å¯¦ä¸Š, é‚è¼¯åˆ¤æ–·å¼éƒ½æœƒç•™ä¸‹ä¸€å€‹æ•¸å­—, 1ä»£è¡¨True(æˆç«‹), 0ä»£è¡¨False(ä¸æˆç«‹)<br>
+ç¯„ä¾‹:
 <pre>
 void main(void)
 {
-	int a=(10>5); // a=1, ¦]¬°10½T¹ê>5
-	int b=(10<5); // b=0, ¦]¬°10¤£<5
+	int a=(10>5); // a=1, å› ç‚º10ç¢ºå¯¦>5
+	int b=(10<5); // b=0, å› ç‚º10ä¸<5
 }
 </pre>
 
-©Ò¥H, ¥»³¹ªº²Ä¤@­Ó½d¨Ò¥i¥H§ï¼g¦p¤U:
+æ‰€ä»¥, æœ¬ç« çš„ç¬¬ä¸€å€‹ç¯„ä¾‹å¯ä»¥æ”¹å¯«å¦‚ä¸‹:
 <pre>
 #include < stdio.h >
 void main(void)
@@ -446,12 +448,12 @@ void main(void)
 	logic=(weight>100);
 	if ( logic )
 	{
-	// ·íweight­È>100®É, { }¤¤ªºprintf´N·|°õ¦æ
+	// ç•¶weightå€¼>100æ™‚, { }ä¸­çš„printfå°±æœƒåŸ·è¡Œ
 		printf("You're too fat\n");
 	}
 }
 </pre>
-²Ä¤G­Ó½d¨Ò¥i¥H§ï¼g¦p¤U
+ç¬¬äºŒå€‹ç¯„ä¾‹å¯ä»¥æ”¹å¯«å¦‚ä¸‹
 <pre>
 void main(void)
 {
@@ -466,7 +468,7 @@ void main(void)
 	logic1 = (height<180);
 	logic2 = (weight>100);
 	if ( logic1 && logic2 )
-	// ³oùØÅÜ¦¨, ·ílogic1©Mlogic2³£¬O«D0ªº¼Æ¦r®É,if´N·|¦¨¥ß              
+	// é€™è£è®Šæˆ, ç•¶logic1å’Œlogic2éƒ½æ˜¯éž0çš„æ•¸å­—æ™‚,ifå°±æœƒæˆç«‹              
 	{
 		printf("You're too fat.\n");
 	}
@@ -476,7 +478,7 @@ void main(void)
 	}
 }
 </pre>
-¤£­n¸òÅÞ¿è¹Bºâ§Ë²V¤F, ¥J²Ó¬Ý¤U­±ªº¨Ò¤l:
+ä¸è¦è·Ÿé‚è¼¯é‹ç®—å¼„æ··äº†, ä»”ç´°çœ‹ä¸‹é¢çš„ä¾‹å­:
 <pre>
 #include < stdio.h >
 void main(void)
@@ -484,7 +486,7 @@ void main(void)
 	int a=4; // a=0100b
 	int b=8; // b=1000b
 	
-	// ³oùØ¬O¬Ý»¡, ¦pªGa©Mb³£¤£¬O0,§PÂ_´N¦¨¥ß. ¦b¦¹®É·|¦¨¥ß.
+	// é€™è£æ˜¯çœ‹èªª, å¦‚æžœaå’Œbéƒ½ä¸æ˜¯0,åˆ¤æ–·å°±æˆç«‹. åœ¨æ­¤æ™‚æœƒæˆç«‹.
 	if ( a && b )
 	{
 		printf("True\n");
@@ -494,8 +496,8 @@ void main(void)
 		printf("False\n");
 	}
 	
-	// ³oùØ·|¥ýºâ¥X a & b ªº¦ì¤¸¹Bºâµ²ªG, ¦A¥h¬Ýºâ¥X¨Óªºµ²ªG·|¤£·|¬O0
-	// 0100b & 1000b = 0000b = 0, ©Ò¥H§PÂ_¤£·|¦¨¥ß
+	// é€™è£æœƒå…ˆç®—å‡º a & b çš„ä½å…ƒé‹ç®—çµæžœ, å†åŽ»çœ‹ç®—å‡ºä¾†çš„çµæžœæœƒä¸æœƒæ˜¯0
+	// 0100b & 1000b = 0000b = 0, æ‰€ä»¥åˆ¤æ–·ä¸æœƒæˆç«‹
 	if ( a & b )
 	{
 		printf("True\n");
@@ -507,8 +509,8 @@ void main(void)
 }
 </pre>
 
-<h3>²Ä¥|¸`:GOTO</h3>
-¬yµ{±±¨î¤¤, ¦³¤@­Ó«Ü¦³«Â¤Oªº»yªk¥s°µGOTO. ª½±µ¬Ý¤@­Ó¨Ò¤l.
+<h3>ç¬¬å››ç¯€:GOTO</h3>
+æµç¨‹æŽ§åˆ¶ä¸­, æœ‰ä¸€å€‹å¾ˆæœ‰å¨åŠ›çš„èªžæ³•å«åšGOTO. ç›´æŽ¥çœ‹ä¸€å€‹ä¾‹å­.
 <pre>
 #include < stdio.h >
 void main(void)
@@ -520,13 +522,13 @@ void main(void)
 
 	if ( i>500 ) 
 		goto RICH;
-		// §ä¨ì¦W¦r¥s°µ"RICH"ªº¨º¤@¦æµ{¦¡½X¥hÄ~Äò°õ¦æµ{¦¡.
+		// æ‰¾åˆ°åå­—å«åš"RICH"çš„é‚£ä¸€è¡Œç¨‹å¼ç¢¼åŽ»ç¹¼çºŒåŸ·è¡Œç¨‹å¼.
 	else
 		goto NOMONEY;
-		// §ä¨ì¦W¦r¥s°µ"NOMONEY"ªº¨º¤@¦æµ{¦¡½X¥hÄ~Äò°õ¦æµ{¦¡.
+		// æ‰¾åˆ°åå­—å«åš"NOMONEY"çš„é‚£ä¸€è¡Œç¨‹å¼ç¢¼åŽ»ç¹¼çºŒåŸ·è¡Œç¨‹å¼.
 		
 
- //³o­Ó"RICH:"¤£ºâ¬Oµ{¦¡½X, ¥¦¬O¥Î¨Ó¨ú¦W¦r. ·N«ä¬O»¡³o¤@¦æµ{¦¡½Xµ¹¤F¥¦¤@­Ó¦W¦r¥s°µ"RICH"
+ //é€™å€‹"RICH:"ä¸ç®—æ˜¯ç¨‹å¼ç¢¼, å®ƒæ˜¯ç”¨ä¾†å–åå­—. æ„æ€æ˜¯èªªé€™ä¸€è¡Œç¨‹å¼ç¢¼çµ¦äº†å®ƒä¸€å€‹åå­—å«åš"RICH"
 	RICH:  printf("You're rich\n");
 	       goto END;
 	NOMONEY:  printf("You're not rich\n");
@@ -534,7 +536,7 @@ void main(void)
 	END:  printf("finish\n");
 }
 </pre>
-goto©Ò­n¸õÅDªº¥Øªº¦a¨Ã¤£¤@©w­n¦b¥Ø«e°õ¦æ·í¤¤µ{¦¡½X©Ò¦b¦aªº«á­±, «e­±¤]¦æ.
+gotoæ‰€è¦è·³èºçš„ç›®çš„åœ°ä¸¦ä¸ä¸€å®šè¦åœ¨ç›®å‰åŸ·è¡Œç•¶ä¸­ç¨‹å¼ç¢¼æ‰€åœ¨åœ°çš„å¾Œé¢, å‰é¢ä¹Ÿè¡Œ.
 <pre>
 #include < stdio.h >
 void main(void)
@@ -542,7 +544,7 @@ void main(void)
 	int i=10;
 	LOOPSTART: printf("%d\n",i--); 
 	if ( i>0 ) goto LOOPSTART;
-		// LOOPSTART³o¤@¦æ´N¦b¤W­±
+		// LOOPSTARTé€™ä¸€è¡Œå°±åœ¨ä¸Šé¢
 }
 </pre>
-gotoÁöµM«Ü¦³«Â¤O, ¦ý¬O¥Î¤Ó¦h«Ü®e©öÅýµ{¦¡ÅÜ±o"¤£µ²ºc¤Æ".
+gotoé›–ç„¶å¾ˆæœ‰å¨åŠ›, ä½†æ˜¯ç”¨å¤ªå¤šå¾ˆå®¹æ˜“è®“ç¨‹å¼è®Šå¾—"ä¸çµæ§‹åŒ–".
