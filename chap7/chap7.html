@@ -1,19 +1,21 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>�ĤC��:�Ƶ{��</title>
+<title>第七章:副程式</title>
 </HEAD>
 
-<h2 align=center>�ĤC��:�Ƶ{��</h2>
-<h3>�Ĥ@�`:�Ƶ{������</h3>
-�@�뻡��, �{�����檺�_�I, �N�i�H�s���D�{��.
-C�y�����{���_�I�O�bmain�禡��, �ҥH, main�N��O�D�{��.<br>
-�Ƶ{�����ƨä��N����������n���N��. ���ҥH�Q�٬��ƬO�]���Ƶ{���ä��|�۰ʰ���, �u���b�Q�O�H
-�I�s��, �Ƶ{���~�|�Q����. (�O�H�����i�H�O�D�{��, �Ϊ̬O�t�@�ӰƵ{��).<p>
-�ƹ�W, �ڭ̤w�g�ϥιL�Ƶ{���F, �u�O�e�X���Ϊ����OC���w�s�禡, ���OCompiler�����t��.
-�{�b�n�m�ߦۤv�g�@�ӰƵ{��(�]�٨禡)�Өϥ�.
+<h2 align=center>第七章:副程式</h2>
+<h3>第一節:副程式概論</h3>
+一般說來, 程式執行的起點, 就可以叫做主程式.
+C語言的程式起點是在main函式中, 所以, main就算是主程式.<br>
+副程式的副並不代表比較不重要的意思. 之所以被稱為副是因為副程式並不會自動執行, 只有在被別人
+呼叫時, 副程式才會被執行. (別人指的可以是主程式, 或者是另一個副程式).<p>
+事實上, 我們已經使用過副程式了, 只是前幾章用的都是C的庫存函式, 都是Compiler中內含的.
+現在要練習自己寫一個副程式(也稱函式)來使用.
 <pre>
 #include < stdio.h >
-// �o�ӴN�O�ڭ̦ۤv�g���s��hello���Ƶ{��. �Ƶ{�����槹��|�^��I�s�����a���~�����
+// 這個就是我們自己寫的叫做hello的副程式. 副程式執行完後會回到呼叫它的地方繼續執行
 void hello(void)
 {
 	printf("Hello\n");
@@ -22,7 +24,7 @@ void hello(void)
 void main(void)
 {
 	printf("I'm going to call hello()\n");
-	hello(); // �I�shello
+	hello(); // 呼叫hello
 	printf("I've called hello()\n");
 }
 </pre>
@@ -30,10 +32,10 @@ void main(void)
 <pre>
 void hello(void)
 ^^^^       ^^^^
-�Ĥ@��void�N��hello���|�Ǧ^����Ʀr.
-�ĤG��void�N��hello���ݭn�ǤJ����Ѽ�.
+第一個void代表hello不會傳回任何數字.
+第二個void代表hello不需要傳入任何參數.
 </pre>
-�Ƶ{���]�i�H�h�I�s�t�@�ӰƵ{��
+副程式也可以去呼叫另一個副程式
 <pre>
 #include < stdio.h >
 
@@ -45,7 +47,7 @@ void b(void)
 void a(void)
 {
 	printf("a\n");
-	b(); // �I�sb
+	b(); // 呼叫b
 }
 
 void main(void)
@@ -55,10 +57,10 @@ void main(void)
 }
 </pre>
 <p>
-�Ƶ{�����D�n�γ~, �O��@�Ƿ|�g�`�ϥΪ��{���X�W�߮��X�Ӽg�@�����{���X.
-���{�����Y�@�����ݭn�Ψ�o�ǵ{���X��, �����I�s�Ƶ{���ӥδN��F, ���ݭn�A�hcopy�@�q�{���X.
+副程式的主要用途, 是把一些會經常使用的程式碼獨立拿出來寫作成為程式碼.
+當程式的某一部分需要用到這些程式碼時, 直接呼叫副程式來用就行了, 不需要再去copy一段程式碼.
 <p>
-�Ƶ{���i�H�����@�ǼƦr�Ӱ��B��, �o�ǼƦr�N�s"�Ѽ�"
+副程式可以接受一些數字來做運算, 這些數字就叫"參數"
 <p>
 <pre>
 #include < stdio.h >
@@ -71,16 +73,16 @@ void PrintMessage(int i)
 void main(void)
 {
 	int a=2;
-	int i=4; // �o�ت�i��W����i�S�����Y.
+	int i=4; // 這裏的i跟上面的i沒有關係.
 	PrintMessage(1);
 	PrintMessage(a);
 	PrintMessage(i);
 }
 </pre>
-�I�s�Ϊ��ѼƤ��e�|�Qcopy��Ƶ{���Ψӱ����Ѽƪ��ܼƤ�. 
-�]�N�O��, �I�s�ɭn�ǤJ���Ѽ�, �M�Ƶ{���������Ϊ��Ѽ�, �ƹ�W�O��Ӥ��P���ܼ�. �ҥH�Ƶ{�������ܰѼƼƭȮ�,
-��өI�s�B���ƭȨä��|����.<br>
-²�檺��, �C�Ө禡�������ܼƳ��O�U�۾֦�, �W�ߪ�.
+呼叫用的參數內容會被copy到副程式用來接收參數的變數中. 
+也就是說, 呼叫時要傳入的參數, 和副程式中接收用的參數, 事實上是兩個不同的變數. 所以副程式中改變參數數值時,
+原來呼叫處的數值並不會改變.<br>
+簡單的說, 每個函式之間的變數都是各自擁有, 獨立的.
 <pre>
 #include < stdio.h >
 
@@ -94,16 +96,16 @@ void PrintMessage(int i)
 
 void main(void)
 {
-	// �o�ت��ܼƸ�W�����S�����Y.
+	// 這裏的變數跟上面都沒有關係.
 	int a=3;
 	int b=2;
 	int i=4; 
 	PrintMessage(i);
-	printf("%d %d %d\n",a,b,i); // ���S���o�{, ����PrintMessage��i=5��, �o�ت�i���M��4.
+	printf("%d %d %d\n",a,b,i); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
 }
 </pre>
-�i�H�Q����, �Ƶ{�������Ѽƥu�O��ŧi����m���F�@�U�Ӥw, �ӥ�����ȷ|�b�I�s�ɳQ�]�w���ǤJ���ƭ�.
-����U�����{����, �i�H�o�{, �C���ܼƪ��O�����}�����@��, �ҥH���M�C���ܼƳ��O�U�ۿW�ߪ�.
+可以想像說, 副程式中的參數只是把宣告的位置換了一下而已, 而它的初值會在呼叫時被設定成傳入的數值.
+執行下面的程式後, 可以發現, 每個變數的記憶體位址都不一樣, 所以當然每個變數都是各自獨立的.
 <pre>
 #include < stdio.h >
 
@@ -118,43 +120,43 @@ void PrintMessage(int i)
 
 void main(void)
 {
-	// �o�ت��ܼƸ�W�����S�����Y.
+	// 這裏的變數跟上面都沒有關係.
 	int a=3;
 	int b=2;
 	int i=4; 
 	PrintMessage(i);
-	printf("%d %d %d\n",a,b,i); // ���S���o�{, ����PrintMessage��i=5��, �o�ت�i���M��4.
+	printf("%d %d %d\n",a,b,i); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
 	printf("%d %d %d\n",&a,&b,&i);
 }
 </pre>
-�ҥH, �n�O�ǰѼƮ�, �Ǫ��O�ܼƪ���}, �N�i�H�b�Ƶ{�����h���ܥD�{�����ܼƪ����e�F.
+所以, 要是傳參數時, 傳的是變數的位址, 就可以在副程式中去改變主程式中變數的內容了.
 <pre>
 #include < stdio.h >
 
-void PrintMessage(int x, int *y) // �]����2�ӰѼƶǪ��O��}, �ҥH�ŧi������
+void PrintMessage(int x, int *y) // 因為第2個參數傳的是位址, 所以宣告成指標
 {
 	printf("%d %d\n",x,*y);
-	printf("%d %d\n",&x,y); // �i�H�o�{�����ܼ�y�N�O�D�{������&i, i����}.
+	printf("%d %d\n",&x,y); // 可以發現指標變數y就是主程式中的&i, i的位址.
 	*y=5;
 	x=2;
 }
 
 void main(void)
 {
-	// �o�ت��ܼƸ�W�����S�����Y.
+	// 這裏的變數跟上面都沒有關係.
 	int a=3;
 	int b=4; 
-	PrintMessage(a,&b); // ��2�ӰѼƶǥ����ƭ�, ��2�ӰѼƶǥ�����}
-	printf("%d %d\n",a,b); // ���S���o�{, ����PrintMessage��i=5��, �o�ت�i���M��4.
-	printf("%d %d\n",&a,&b); // �d�ݥ��̪���}
+	PrintMessage(a,&b); // 第2個參數傳它的數值, 第2個參數傳它的位址
+	printf("%d %d\n",a,b); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
+	printf("%d %d\n",&a,&b); // 查看它們的位址
 }
 </pre>
-�|�Ǧ^�Ʀr���Ƶ{��, �Ϊk�W�i�H�������ƾǤW�����.
+會傳回數字的副程式, 用法上可以很類似數學上的函數.
 
 <pre> 
 #include < stdio.h >
 
-// �o�Ө禡�|�Ǧ^����Ϊ����n
+// 這個函式會傳回正方形的面積
 int Area(int x) 
 {
 	return x*x;
@@ -167,7 +169,7 @@ void main(void)
 	printf("area=%d\n",area);
 }
 </pre>
-�|�Ǧ^�Ʀr���禡, �ä��@�w�n���H�h�����o�ӼƦr.
+會傳回數字的函式, 並不一定要有人去接收這個數字.
 <pre>
 #include < stdio.h >
 
@@ -181,12 +183,12 @@ int Area(int x)
 void main(void)
 {
 	int l=3;
-	Area(l); // �p��M��X���@�������F.
+	Area(l); // 計算和輸出都一次做掉了.
 }
 </pre>
 <p>
-�@�뻡��, �Ƶ{�����񪺵{���X�q�`���O�b��ӵ{����, ��ƿW�ߥ\�઺�Ҳ�.<br>
-�d��:�g�@�Ӱ����׻P�����ഫ���{��.
+一般說來, 副程式中放的程式碼通常都是在整個程式中, 具備獨立功能的模組.<br>
+範例:寫一個做弧度與角度轉換的程式.
 <p>
 <pre>
 #include < stdio.h >
@@ -206,13 +208,13 @@ void main(void)
 	printf("deg=%lf\n",rad2deg(r));
 }
 </pre>
-<h3>�ĤG�`:�����ܼ�</h3>
-�ܼƦp�G�ŧi�b�禡��, ���o���ܼƴN�u��b�o�Ө禡���Өϥ�. �p�G�ܼƫŧi�b�禡�~��, �N���F��
-���ܼ�.
+<h3>第二節:全域變數</h3>
+變數如果宣告在函式中, 那這個變數就只能在這個函式中來使用. 如果變數宣告在函式外面, 就成了全
+域變數.
 <pre>
 #include < stdio.h >
 
-int a=3; // �ŧi�b�禡�~��, �o��a�i�H�Q�b�o�@��H�᪺����@��{���X�ϥ�
+int a=3; // 宣告在函式外面, 這個a可以被在這一行以後的任何一行程式碼使用
 
 void show(void)
 {
@@ -227,19 +229,19 @@ void main(void)
 }
 </pre>
 
-�禡���p�G�ŧi�F�@�өM��ج�ܼƦP�W���ܼ�, ���b�ϥήɭY�S�S�O���w, �Ϊ��|�O�禡���s�ŧi�����@��
-�ܼ�. �Y�O�[�W���"::"��, �|���w�ϥΪ��O��ج�ܼ�.
+函式中如果宣告了一個和全堿變數同名的變數, 那在使用時若沒特別指定, 用的會是函式中新宣告的那一個
+變數. 若是加上兩個"::"號, 會指定使用的是全堿變數.
 
 <pre>
 #include < stdio.h >
 
-int a=3; // �ŧi�b�禡�~��, �o��a�i�H�Q�b�o�@��H�᪺����@��{���X�ϥ�
+int a=3; // 宣告在函式外面, 這個a可以被在這一行以後的任何一行程式碼使用
 
 void show(void)
 {
-	int a=0; // �p�G�ۤv�S�ŧi�F�@��a
-	printf("%d\n",a); // ���o�ت�a�Ϊ��Olocal��
-	printf("%d\n",::a); // �p�G�[�W���::, ���Ψ쪺�|�O�~����a
+	int a=0; // 如果自己又宣告了一個a
+	printf("%d\n",a); // 那這裏的a用的是local的
+	printf("%d\n",::a); // 如果加上兩個::, 那用到的會是外面的a
 }
 
 void main(void)
@@ -247,9 +249,9 @@ void main(void)
 	show();
 }
 </pre>
-�����ɭ�, �ϥΥ����ܼƬO������.
-�]���禡�����ܼƳ��O��b�O���骺stack�Ϭq, �o�ӰϬq�q�`�e�q���|�Ӥj, ���ɦp�G�ŧi�F�@�ӤӤj��
-�}�C�N�|��stack������, �o�ɴN�ݭn���ܼƥѨ�Ƥ�����~���ܦ������ܼ�.
+有的時候, 使用全域變數是必須的.
+因為函式中的變數都是放在記憶體的stack區段, 這個區段通常容量不會太大, 有時如果宣告了一個太大的
+陣列就會把stack都佔滿, 這時就需要把變數由函數中移到外面變成全域變數.
 <pre>
 #include < stdio.h >
 
@@ -257,27 +259,27 @@ void main(void)
 
 void main(void)
 {
-	int a[N]; // �}�C�ŧi�bmain�禡��, �ѩ�N�Ӥj, �����F���stack, �ҥH�{���@����N��.
+	int a[N]; // 陣列宣告在main函式中, 由於N太大, 佔滿了整個stack, 所以程式一執行就當.
 }
 </pre>
-�W�����{���u�n��ŧi����~���N�i�H���`����F.
+上面的程式只要把宣告拿到外面就可以正常執行了.
 <pre>
 #include < stdio.h >
 
 #define N 1024*1024
 
-int a[N]; // �ŧi����ج�ܼ�, �ܼ�a���A��bstack��. 
+int a[N]; // 宣告成全堿變數, 變數a不再放在stack中. 
 void main(void)
 {
 }
 </pre>
-<h3>�ĤT�`:��{����h���ɮ�</h3>
-���F*.h��header�ɥi�H�W�ߦ��t�@���ɮץ~, *.c/*.cpp���{���ɤ]�i�H��h���ɮרӼg�@.<br>
-�d��:main.cpp<br>
+<h3>第三節:把程式拆成多個檔案</h3>
+除了*.h的header檔可以獨立成另一個檔案外, *.c/*.cpp的程式檔也可以拆成多個檔案來寫作.<br>
+範例:main.cpp<br>
 <pre>
 #include < stdio.h >
 
-void show(void); // �ϥ�show���e, �n���ŧi�����ѼƤζǦ^�ȫ��A.
+void show(void); // 使用show之前, 要先宣告它的參數及傳回值型態.
 
 void main(void)
 {
@@ -286,39 +288,39 @@ void main(void)
 </pre>
 show.cpp<br>
 <pre>
-#include < stdio.h > // �o�O�@�ӿW�ߪ��{����, �ҥH�٬O�ݭninclude
+#include < stdio.h > // 這是一個獨立的程式檔, 所以還是需要include
 
 void show(void)
 {
 	printf("Hello\n");
 }
 </pre>
-�n�o����ɮצP�ɮ��hcompile, �~�ಣ�ͥX������. �ҥH, �b�ߺD�W, �C�@��cpp�ɴN�|���۹�����*.h
-��, *.h�ɤ��񪺬O*.cpp�ɤ��i�H���䥦cpp�ɩI�s���禡�ŧi.<br>
-�d��:main.cpp<br>
+要這兩個檔案同時拿去compile, 才能產生出執行檔. 所以, 在習慣上, 每一個cpp檔就會有相對應的*.h
+檔, *.h檔中放的是*.cpp檔中可以讓其它cpp檔呼叫的函式宣告.<br>
+範例:main.cpp<br>
 <pre>
 #include < stdio.h >
 
-#include "show.h" // show()���ŧi�b�o�ح�
+#include "show.h" // show()的宣告在這裏面
 
 void main(void)
 {
 	show();
 }
 </pre>
-�o�ت�show.h���u���@��.<br>
+這裏的show.h中只有一行.<br>
 show.h<br>
 <pre>
-void show(void); // �ϥ�show���e, �n���ŧi�����ѼƤζǦ^�ȫ��A.
+void show(void); // 使用show之前, 要先宣告它的參數及傳回值型態.
 </pre>
-�ba�ɮפ��ŧi�������ܼ�, �Y�n�bb�ɮפ��ϥ�, ��b�ɮ׫ŧi�ܼƮ�, �n�[�Wextern.
+在a檔案中宣告的全域變數, 若要在b檔案中使用, 那b檔案宣告變數時, 要加上extern.
 <pre>
 [main.cpp]
 
 #include < stdio.h >
-#include "show.h" // show()���ŧi�b�o�ح�
+#include "show.h" // show()的宣告在這裏面
 
-int a=3; // �����ܼ�a
+int a=3; // 全域變數a
 
 void main(void)
 {
@@ -327,18 +329,18 @@ void main(void)
 
 [show.cpp]
 
-#include < stdio.h > // �o�O�@�ӿW�ߪ��{����, �ҥH�٬O�ݭninclude
+#include < stdio.h > // 這是一個獨立的程式檔, 所以還是需要include
 
-extern int a; // �j�ջ�, �o�ӥ����ܼ�a�̥��O�ŧi�b�䥦�ɮפ�
+extern int a; // 強調說, 這個全域變數a最先是宣告在其它檔案中
 
 void show(void)
 {
 	printf("Hello a=%d\n",a);
 }
 </pre>
-<h3>�ĥ|�`:���j</h3>
-�Ƶ{���i�H���F�i�H�I�s�䥦�Ƶ{���~, �٥i�H�I�s�ۤv. �Ƶ{���ۤv�I�s�ۤv�N�٬����j.<br>
-�d��:�ⶥ��
+<h3>第四節:遞迴</h3>
+副程式可以除了可以呼叫其它副程式外, 還可以呼叫自己. 副程式自己呼叫自己就稱為遞迴.<br>
+範例:算階乘
 <pre>
 #include < stdio.h >
 
@@ -356,9 +358,9 @@ void main(void)
 	printf("%d!=%d\n",n,fact(n));
 }
 </pre> 
-���j���ϥάO��Ƶ��c�κt��k���ܰ򥻪��ʧ@.
-<h3>�Ĥ��`:�禡����</h3> 
-�禡�]�i�H�O�@�ӫ���, �Ψӫ��V�t�@�Ө禡.
+遞迴的使用是資料結構及演算法中很基本的動作.
+<h3>第五節:函式指標</h3> 
+函式也可以是一個指標, 用來指向另一個函式.
 <pre>
 #include < stdio.h >
 
@@ -375,14 +377,14 @@ void func2(void)
 void main(void)
 {
 	void (*f)(void);
-	f=func1; // f���Vfunc1
-	(*f)();	 // �I�sf, �]�N����I�sfunc1
-	f=func2; // f���Vfunc2
-	f();     // �I�sf, �]�N����I�sfunc2, �����gf()�]��.
+	f=func1; // f指向func1
+	(*f)();	 // 呼叫f, 也就等於呼叫func1
+	f=func2; // f指向func2
+	f();     // 呼叫f, 也就等於呼叫func2, 直接寫f()也行.
 }
 </pre>
-�禡���Ъ�����<br>
-�d��:�ΨӴ�֧P�_������.
+函式指標的應用<br>
+範例:用來減少判斷的次數.
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -443,7 +445,7 @@ void main(void)
 	printf("\n");
 }
 </pre>
- �o�ӵ{���p�G���Ψ禡���ШӼg, switch�N������b�j�����, �C���j�鳣�n���@���P�_.
+ 這個程式如果不用函式指標來寫, switch就必須放在迴圈當中, 每次迴圈都要做一次判斷.
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -502,7 +504,7 @@ void main(void)
 	printf("\n");
 } 
 </pre>
-�Ψ禡���Ю�, �٥i�H��禡�����Ѽƶǻ��X�h.
+用函式指標時, 還可以把函式當成參數傳遞出去.
 <pre>
 #include < stdio.h >
 
@@ -527,7 +529,7 @@ void main(void)
 	printf("sub(1,2)=%d\n",oper(1,2,sub) );
 }
 </pre>
-�ϥ�C���w�s�禡qsort��, �N�ݭn��P�O�j�p���禡�Ƕi�h.
+使用C的庫存函式qsort時, 就需要把判別大小的函式傳進去.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -568,9 +570,9 @@ void main(void)
 	printf("\n");
 }
 </pre>
-<h3>�Ĥ��`:�ǻ��}�C�Ѽ�</h3>
-��}�C���ѼƨӶǻ���, �n�q�O���骺���רӬ�. �p�G�ǻ����u�O�}�C�����@���ܼ�, ���M�Ǵ��q�ܼ�
-�S��������O. �p�G�Ǫ��O��Ӱ}�C, �ǻ����F��|�O�}�C����}, �򥻤W, �Ǫ��N�O�@�ӫ���.
+<h3>第五節:傳遞陣列參數</h3>
+把陣列當參數來傳遞時, 要從記憶體的角度來看. 如果傳遞的只是陣列中的一個變數, 那和傳普通變數
+沒有什麼分別. 如果傳的是整個陣列, 傳遞的東西會是陣列的位址, 基本上, 傳的就是一個指標.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -579,7 +581,7 @@ void main(void)
 #define N 10
 #define MAX_NUMBER 10
 
-void output1(int a[]) // �n�g��void output1(int a[N])�]��
+void output1(int a[]) // 要寫成void output1(int a[N])也行
 {
 	for ( int i=0; i < N; i++ )
 	{
@@ -610,10 +612,10 @@ void main(void)
 	output2(a);
 }
 </pre>
-������Ƶ{�������}�C�i�H�����wsize? �]���}�C�ǹL�h���u�O�}�C���_�l��}. �Ӱ}�C���n���ܼƥX
-�ӥΥu�ݭn�q&a+i�o�Ӧ�}�h��ƭȨӥΧY�i, �ҥH�b�Ƶ{�����}�C�ѼƤ��S���@�w�n�A���@�w����size.
-���L, �p�G�}�C�ON����, �̤֭n���wN-1����size�~��. �^��ĥ|���h�^�Ф@�U�}�C�C���ܼƪ��O����ƦC�k.
-�|�o�{��1�Ӻ��שl�פ��ݭn�b�o�ӭp�⤤�X�{, �ҥH��1�Ӻ��ץi�H�����w�j�p.
+為什麼副程式中的陣列可以不給定size? 因為陣列傳過去的只是陣列的起始位址. 而陣列中要拿變數出
+來用只需要從&a+i這個位址去抓數值來用即可, 所以在副程式的陣列參數中沒有一定要再說一定它的size.
+不過, 如果陣列是N維的, 最少要給定N-1維的size才行. 回到第四章去回憶一下陣列每個變數的記憶體排列法.
+會發現第1個維度始終不需要在這個計算中出現, 所以第1個維度可以不給定大小.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -623,7 +625,7 @@ void main(void)
 #define COL 3
 #define MAX_NUMBER 20
 
-void output(int a[][COL]) // ��1���i�H����, �]���M�p���}�L�� 
+void output(int a[][COL]) // 第1維可以不給, 因為和計算位址無關 
 {
 	for ( int i=0; i < ROW; i++ )
 	{
@@ -650,7 +652,7 @@ void main(void)
 	output(a);
 }
 </pre>
-�ҥH, �}�C�O�i�H�g�Ѷǻ��Ӱ��ܫ����ʧ@.
+所以, 陣列是可以經由傳遞來做變型的動作.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -680,12 +682,12 @@ void main(void)
 		{
 			a[i][j]=rand()%(MAX_NUMBER+1);
 		}
-		output(a[i]); // ��2�����}�C����1���}�C�ǥX�h.
+		output(a[i]); // 把2維的陣列當成1維陣列傳出去.
 	}
 }
 </pre>
-<h3>�Ĥ��`:�ǰѼƵ��D�{��</h3>
-�Ƶ{���i�H�ǰѼ�, �D�{���]�i�H�ǰѼƥi��. �D�{���ǰѼƬO�q�����ɫ᭱���ѼƱo�쪺.
+<h3>第六節:傳參數給主程式</h3>
+副程式可以傳參數, 主程式也可以傳參數可它. 主程式傳參數是從執行檔後面的參數得到的.
 <p>
 <pre>
 #include < stdio.h >
@@ -698,11 +700,11 @@ void main(int argc, char *argv[])
 	}
 }
 </pre>
-argc�|�o��Ѽƪ��ƥ�, *argv[]�|�o��Ѽƪ����e, argv[0]�O��1�ӰѼ�,
-argv[1]�O��2�ӰѼ�.
-��1�ӰѼƩT�w�|�ǤJ�����ɪ��W�r. �ҥHargc�@�w�|>=1.
-�өҦ����ѼƳ��|�Φr�ꪺ���A�ǤJ.
-�ҥH�Y�n�ǤJ�Ʀr��, �n��atoi��r���ഫ�^�Ʀr.<p>
+argc會得到參數的數目, *argv[]會得到參數的內容, argv[0]是第1個參數,
+argv[1]是第2個參數.
+第1個參數固定會傳入執行檔的名字. 所以argc一定會>=1.
+而所有的參數都會用字串的型態傳入.
+所以若要傳入數字時, 要用atoi把字串轉換回數字.<p>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
