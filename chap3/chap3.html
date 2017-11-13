@@ -1,12 +1,14 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>�ĤT��:�j��</title>
+<title>第三章:迴圈</title>
 </HEAD>
 
-<h2 align=center>�ĤT��:�j��</h2>
-<h3>�Ĥ@�`:for�j��</h3>
-���{���ݭn�Ӧ^���ư���Y�@�q�{���X��, �N�i�H�ϥΰj��<br>
-�d��:�L�X10��hello
+<h2 align=center>第三章:迴圈</h2>
+<h3>第一節:for迴圈</h3>
+當程式需要來回重複執行某一段程式碼時, 就可以使用迴圈<br>
+範例:印出10行hello
 <pre>
 #include < stdio.h >
 void main(void)
@@ -18,15 +20,15 @@ void main(void)
 	}
 }
 </pre>
-for�j��|���ư���Ʀ�{ }���ҥ]�t���{���X,
-�ܩ�O����X���h��for (  ;   ;  )�������F��ӨM�w.
-���ح��ҭn�񪺪F��O:
-for ( �i�J�j��e�n������; �~�����j�骺����; �C�]���@���j��|������ )<p>
-�ҥH, �b�W�����Ҥl��, �i�J�j��e�|��i=0;��i<10���ɭ�, �j��|�~��]; �j��C
-�]���@��, �N�|��i++���ʧ@.����{���ɥi�H�ݨ�i�Ѥ@�}�l��0�|�C�����֥[�W1.
-��̫��ܦ�10����N�����{��.<p>
-�j����M���O���ΨӰ��W�����صL�᪺�F��, �ݭӨҤl:<br>
-�d��:��X1+2+3+....+99+100
+for迴圈會重複執行數次{ }中所包含的程式碼,
+至於是執行幾次則由for (  ;   ;  )當中的東西來決定.
+它裏面所要放的東西是:
+for ( 進入迴圈前要做的事; 繼續執行迴圈的條件; 每跑完一次迴圈會做的事 )<p>
+所以, 在上面的例子中, 進入迴圈前會做i=0;當i<10的時候, 迴圈會繼續跑; 迴圈每
+跑完一圈, 就會做i++的動作.執行程式時可以看到i由一開始的0會每次都累加上1.
+到最後變成10之後就結束程式.<p>
+迴圈當然不是都用來做上面那種無聊的東西, 看個例子:<br>
+範例:算出1+2+3+....+99+100
 <pre>
 #include < stdio.h >
 void main(void)
@@ -40,7 +42,7 @@ void main(void)
 	printf("%d\n",sum);
 }
 </pre>
-�d��:��Xn!=1*2*3*....n
+範例:算出n!=1*2*3*....n
 <pre>
 #include < stdio.h >
 void main(void)
@@ -56,7 +58,7 @@ void main(void)
 	printf("%d\n",sum);
 }
 </pre>
-�j��{}�����i�H�g���󪺵{���X, �ҥH�]�i�H�A��i�@�Ӱj��
+迴圈{}當中可以寫任何的程式碼, 所以也可以再放進一個迴圈
 <pre>
 #include < stdio.h >
 void main(void)
@@ -71,25 +73,25 @@ void main(void)
 	}
 }
 </pre>
-<h3>�ĤG�`:WHILE�j��</h3>
-for�j��q�`�O�Φb�j��n�]�����ƨƥ��i�H�w�ƪ����ΤU, 
-���L�����y�k�èS�����o�ӭ���. �p�G��for( ; ; )�����@�ǪF�讳
-��, �N�i�H���줣��ƥ��w�ưj�馸�ƪ��{��<br>
-�d��:�g�@�ӵ{��������_��Ū�J�@����, �@������Jq�N�����{��.
+<h3>第二節:WHILE迴圈</h3>
+for迴圈通常是用在迴圈要跑的次數事先可以預料的情形下, 
+不過它的語法並沒有做這個限制. 如果把for( ; ; )中的一些東西拿
+掉, 就可以做到不能事先預料迴圈次數的程式<br>
+範例:寫一個程式能夠不斷的讀入一個鍵, 一直到鍵入q就結束程式.
 <pre>
 #include < stdio.h >
 #include < conio.h >
 void main(void)
 {
-	char key='y'; // �o�u�O���F��key�Ȥ���'q'
+	char key='y'; // 這只是為了讓key值不為'q'
 	for( ; key!='q'; )
-	// �o��for�u�d�U�޿�P�_, �ŦX�����for�~�|�~��]
+	// 這個for只留下邏輯判斷, 符合條件時for才會繼續跑
 	{
 		key=getche();
 	}
 }
 </pre>
-�y�k�W, �o��"���@�w�|�]�X��"���j�鳣��while�Ӽg�@.
+語法上, 這種"不一定會跑幾次"的迴圈都用while來寫作.
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -97,13 +99,13 @@ void main(void)
 {
 	char key='y';
 	while(key!='q')
-	// while���u���޿�P�_, �ŦX�����while�~�|�~��]
+	// while中只有邏輯判斷, 符合條件時while才會繼續跑
 	{
 		key=getche();
 	}
 }
 </pre>
-�e���p��1+2+3....+99+100���{�����while�g���ۦp�U:
+前面計算1+2+3....+99+100的程式改用while寫長相如下:
 <pre>
 #include < stdio.h >
 void main(void)
@@ -118,8 +120,8 @@ void main(void)
 	printf("%d\n",sum);
 }
 </pre>
-while�j�餤���P�_���i�H��b�j�骺�̫��, �Φ��@��do-while�j��. 
-�o�ˤl���j��ַ̤|�]�@��.
+while迴圈中的判斷式可以放在迴圈的最後端, 形成一個do-while迴圈. 
+這樣子的迴圈最少會跑一次.
 <pre>
 #include < conio.h >
 void main(void)
@@ -130,13 +132,13 @@ void main(void)
 		key=getche();
 	}
 	while(key!='q');
-	// ��n���n�~��]�j�骺����P�_��b�j��̫��, �j��O�ҳ̤֤@�w�|�]�@��.
+	// 把要不要繼續跑迴圈的條件判斷放在迴圈最後端, 迴圈保證最少一定會跑一次.
 }
 </pre>
-<h3>�ĤT�`:�j�餤���y�{����</h3>
-�b�j�����, �i�H�]�w�b�Y�Ǳ��ΤU�N���������j��(break), �Ϊ̬O
-��������j��}�Y�B�~�����(continue).<br>
-�d��:��break��g�W�@�ӽd��
+<h3>第三節:迴圈中的流程控制</h3>
+在迴圈當中, 可以設定在某些情形下就直接結束迴圈(break), 或者是
+直接跳到迴圈開頭處繼續執行(continue).<br>
+範例:用break改寫上一個範例
 <pre>
 #include < conio.h >
 void main(void)
@@ -145,16 +147,16 @@ void main(void)
 	do
 	{
 		key=getche();
-		// ��key��q��, �Nbreak, ���X�j��
+		// 當key為q時, 就break, 跳出迴圈
 		if ( key=='q' )
 			break;
 	} while( 1 );
-	// �o�ت��P�_�|���j��@������
+	// 這裏的判斷會讓迴圈一直執行
 }
 </pre>
-�bwhile�j�餤, �g�`�|�ϥΨ�W�����y�k, �A��continue���Ϊk<p>
-�d��:�ꤺ���ʳf���q�����S��4�ӳo�ӼӼh, �g�@�ӵ{���Ӽ����q�@�ӧ�
-�q���10�Ӫ�����.
+在while迴圈中, 經常會使用到上面的語法, 再看continue的用法<p>
+範例:國內的百貨公司有都沒有4樓這個樓層, 寫一個程式來模擬從一樓坐
+電梯到10樓的情形.
 <pre>
 #include < stdio.h >
 void main(void)
@@ -162,17 +164,17 @@ void main(void)
 	int i;
 	for ( i=1; i<=10; i++ )
 	{
-		// �Y�O4�ӴN���L, �^��j��}�Y�~�����
+		// 若是4樓就跳過, 回到迴圈開頭繼續執行
 		if ( i==4 )
 			continue;
 		printf("floor %d\n",i);
 	}
 }
 </pre>
-�W���o�ӵ{���|���L"floor 4", �L�X�䥦���Ӽh.
+上面這個程式會跳過"floor 4", 印出其它的樓層.
 
-<h3>�ĥ|�`:�j�骺����</h3>
-�d��1:�L�X�@�Ӿ�ƪ���ڤG�i��Ʀr����
+<h3>第四節:迴圈的應用</h3>
+範例1:印出一個整數的實際二進位數字長相
 <pre>
 #include < stdio.h >
 
@@ -185,11 +187,11 @@ void main(void)
 	printf("Input a num:");
 	scanf("%d",&num);
 	
-	// �j�����31, 30 .... 1, 0���ƦC�Ӱ���
+	// 迴圈按照31, 30 .... 1, 0的排列來執行
 	for ( bitloc=31; bitloc>=0; bitloc-- )
 	{
 		mask=1 << bitloc;
-		// ��mask & num���줸�p�⵲�G����0��, �N����bitloc�Ӧ줸�O1
+		// 當mask & num的位元計算結果不為0時, 代表第bitloc個位元是1
 		if ( mask & num )
 		{
 			putchar('1');
@@ -202,12 +204,12 @@ void main(void)
 	putchar('\n');
 }
 </pre>
-�d��2:�O��ƦC���w�q��
+範例2:費氏數列的定義為
 <blockquote>
 <pre>
 f(1)=0;
 f(2)=1;
-�̫e��2�ӼƦr�O�T�w��. ��3�ӼƦr���᪺�w�q��
+最前面2個數字是固定的. 第3個數字之後的定義為
 f(3)=f(2)+f(1);
 f(4)=f(3)+f(2);
 ......
@@ -215,7 +217,7 @@ f(4)=f(3)+f(2);
 f(n)=f(n-1)+f(n-2);
 </pre>
 </blockquote>
-�ε{���ӭp��Xf(1)----f(10)���ƦC��
+用程式來計算出f(1)----f(10)的數列來
 <pre>
 #include < stdio.h >
 void main(void)
@@ -226,21 +228,21 @@ void main(void)
 	int i;
 
 	printf("f(1)=0\nf(2)=1\n");
-	// ��1,2�ӼƨҤw��, �O�w��, �q��3�ӼƦr�}�l�p��
+	// 第1,2個數例已知, 是定值, 從第3個數字開始計算
 	for ( i=3; i<=10; i++ )
 	{
-		// �өw�qf(n)=f(n-1)+f(n-2)
+		// 照定義f(n)=f(n-1)+f(n-2)
 		fn=fn_1+fn_2;
-		// �L�Xf(n)
+		// 印出f(n)
 		printf("f(%d)=%d\n",i,fn);
-		// �U�����j�餤, f(n-2)�O�{�b��f(n-1)
+		// 下次的迴圈中, f(n-2)是現在的f(n-1)
 		fn_2=fn_1;
-		// �U�����j�餤, f(n-1)�O�{�b��f(n)
+		// 下次的迴圈中, f(n-1)是現在的f(n)
 		fn_1=fn;
 	}
 }
 </pre>
-�d��3:�ΰj��L�X99���k��
+範例3:用迴圈印出99乘法表
 <pre>
 #include < stdio.h >
 void main(void)
