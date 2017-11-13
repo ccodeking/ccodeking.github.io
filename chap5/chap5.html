@@ -1,11 +1,13 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>�Ĥ���:�ۭq���A</title>
+<title>第五章:自訂型態</title>
 </HEAD>
 
-<h2 align=center>�Ĥ���:�ۭq���A</h2>
-<h3>�Ĥ@�`:���cstruct</h3>
-���ݤ@�ӽd��, ���]�O���@�ӤH���򥻸�ƻݭn�L��"�m�W","����","�魫", �g���{�������ۦp�U:
+<h2 align=center>第五章:自訂型態</h2>
+<h3>第一節:結構struct</h3>
+先看一個範例, 假設記錄一個人的基本資料需要他的"姓名","身高","體重", 寫成程式的長相如下:
 <pre>
 #include < stdio.h >
 
@@ -22,7 +24,7 @@ void main(void)
 	scanf("%d",&weight2);
 }
 </pre>
-�bC�y����, �����Ѥ@�Ӥ���n����k�Ӧۤv�w�q�X�@�s�ܼƪ��զX.
+在C語言中, 有提供一個比較好的方法來自己定義出一群變數的組合.
 <pre>
 #include < stdio.h >
 
@@ -47,7 +49,7 @@ void main(void)
 	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
 }
 </pre>
-�g���}�C���ۦp�U
+寫成陣列長相如下
 <pre>
 #include < stdio.h >
 
@@ -73,7 +75,7 @@ void main(void)
 	}
 }
 </pre>
-struct���i�H����󫬺A, ���M�]�i�H��i�@�Ӧۭq�����A.
+struct中可以放任何型態, 當然也可以放進一個自訂的型態.
 <pre>
 #include < stdio.h >
 
@@ -90,13 +92,13 @@ struct Triangle
 void main(void)
 {
 	Triangle t={ {0,0,0}, {0,1,0}, {1,1,0} };
-	// �W���]�w��Ȫ����G�|��U�������G�@��
+	// 上面設定初值的結果會跟下面的結果一樣
 	t.a.x=0; t.a.y=0; t.a.z=0;
 	t.b.x=0; t.b.y=1; t.b.z=0;
 	t.c.x=1; t.c.y=1; t.c.z=0;
 }
 </pre>
-C�y�����@�ӫ��O�s��sizeof, �i�H�ΨӬݨC�ӫ��A�|���Φh�֦줸.
+C語言有一個指令叫做sizeof, 可以用來看每個型態會佔用多少位元.
 <pre>
 #include < stdio.h >
 
@@ -117,16 +119,16 @@ void main(void)
 }
 <pre>
 
-<h3>�ĤG�`:union</h3>
-union�]�O�ΨӦۭq�@�ӦU�ث��A���զX, ���L�Mstruct���@�˪��O, union�����ܼƳ��|���ΦP�@���O����.<br>
-�d��:�ΨӨ��X���줸�ΧC�줸
+<h3>第二節:union</h3>
+union也是用來自訂一個各種型態的組合, 不過和struct不一樣的是, union中的變數都會佔用同一塊記憶體.<br>
+範例:用來取出高位元及低位元
 <pre>
 #include < stdio.h >
 
 union u1
 {
 	char a[2];
-	// a[0]�N�|����b��lowbyte, a[1]�N�|����b=hibyte
+	// a[0]就會等於b的lowbyte, a[1]就會等於b=hibyte
 	short b;
 };
 
@@ -137,7 +139,7 @@ void main(void)
 	printf("sizeof=%d hibyte=%d, lowbyte=%d\n", sizeof(u), u.a[1], u.a[0]);
 }
 </pre>
-�d��:�Ψӳ]�w3���Ŷ����I
+範例:用來設定3維空間的點
 <pre>
 #include < stdio.h >
 
@@ -161,7 +163,7 @@ void main(void)
 	printf("(%f,%f,%f)\n", vertex.v.x, vertex.v.y, vertex.v.z);
 }
 </pre>
-�d��:�Ψ��x�s���P���A���ܺ�,(�ٰO����)
+範例:用來儲存不同型態的變種,(省記憶體)
 <pre>
 #include < stdio.h >
 
@@ -229,8 +231,8 @@ void main(void)
 	}
 }
 </pre>
-<h3>�ĤT�`:C�y�����u�����g�k</h3>
-�ƹ�, �W�����g�k, ���OC++���Ϊk, C�y�����n�ϥΫŧistruct�ܼƮ�, �n�[�Wstruct�o�Ӧr.
+<h3>第三節:C語言中真正的寫法</h3>
+事實, 上面的寫法, 都是C++的用法, C語言中要使用宣告struct變數時, 要加上struct這個字.
 <pre>
 #include < stdio.h >
 
@@ -255,7 +257,7 @@ void main(void)
 	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
 }
 </pre>
-�٦��H�|��"typdef"�Ӧۭq�@�ӫ��A. �o�˪��g�k�N�����C++���g�k�F.
+還有人會用"typdef"來自訂一個型態. 這樣的寫法就比較像C++的寫法了.
 <pre>
 #include < stdio.h >
 
@@ -282,7 +284,7 @@ void main(void)
 	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
 }
 </pre>
-typedef�i�H��Ҧ�C�y���������A��ε{���]�p�v�ۤv�����W�r�Ө��N.
+typedef可以把所有C語言中的型態改用程式設計師自己取的名字來取代.
 <pre>
 #include < stdio.h >
 
