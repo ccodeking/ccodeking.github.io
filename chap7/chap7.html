@@ -1,0 +1,720 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
+<title>第七章:副程式</title>
+</HEAD>
+
+<h2 align=center>第七章:副程式</h2>
+<h3>第一節:副程式概論</h3>
+一般說來, 程式執行的起點, 就可以叫做主程式.
+C語言的程式起點是在main函式中, 所以, main就算是主程式.<br>
+副程式的副並不代表比較不重要的意思. 之所以被稱為副是因為副程式並不會自動執行, 只有在被別人
+呼叫時, 副程式才會被執行. (別人指的可以是主程式, 或者是另一個副程式).<p>
+事實上, 我們已經使用過副程式了, 只是前幾章用的都是C的庫存函式, 都是Compiler中內含的.
+現在要練習自己寫一個副程式(也稱函式)來使用.
+<pre>
+#include < stdio.h >
+// 這個就是我們自己寫的叫做hello的副程式. 副程式執行完後會回到呼叫它的地方繼續執行
+void hello(void)
+{
+	printf("Hello\n");
+}
+
+void main(void)
+{
+	printf("I'm going to call hello()\n");
+	hello(); // 呼叫hello
+	printf("I've called hello()\n");
+}
+</pre>
+
+<pre>
+void hello(void)
+^^^^       ^^^^
+第一個void代表hello不會傳回任何數字.
+第二個void代表hello不需要傳入任何參數.
+</pre>
+副程式也可以去呼叫另一個副程式
+<pre>
+#include < stdio.h >
+
+void b(void)
+{
+	printf("b\n");
+}
+
+void a(void)
+{
+	printf("a\n");
+	b(); // 呼叫b
+}
+
+void main(void)
+{
+	a();
+	b();
+}
+</pre>
+<p>
+副程式的主要用途, 是把一些會經常使用的程式碼獨立拿出來寫作成為程式碼.
+當程式的某一部分需要用到這些程式碼時, 直接呼叫副程式來用就行了, 不需要再去copy一段程式碼.
+<p>
+副程式可以接受一些數字來做運算, 這些數字就叫"參數"
+<p>
+<pre>
+#include < stdio.h >
+
+void PrintMessage(int i)
+{
+	printf("Hello %d\n",i);
+}
+
+void main(void)
+{
+	int a=2;
+	int i=4; // 這裏的i跟上面的i沒有關係.
+	PrintMessage(1);
+	PrintMessage(a);
+	PrintMessage(i);
+}
+</pre>
+呼叫用的參數內容會被copy到副程式用來接收參數的變數中. 
+也就是說, 呼叫時要傳入的參數, 和副程式中接收用的參數, 事實上是兩個不同的變數. 所以副程式中改變參數數值時,
+原來呼叫處的數值並不會改變.<br>
+簡單的說, 每個函式之間的變數都是各自擁有, 獨立的.
+<pre>
+#include < stdio.h >
+
+void PrintMessage(int i)
+{
+	int a=2;
+	int b=3;
+	printf("%d %d %d\n",a,b,i);
+	i=5;
+}
+
+void main(void)
+{
+	// 這裏的變數跟上面都沒有關係.
+	int a=3;
+	int b=2;
+	int i=4; 
+	PrintMessage(i);
+	printf("%d %d %d\n",a,b,i); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
+}
+</pre>
+可以想像說, 副程式中的參數只是把宣告的位置換了一下而已, 而它的初值會在呼叫時被設定成傳入的數值.
+執行下面的程式後, 可以發現, 每個變數的記憶體位址都不一樣, 所以當然每個變數都是各自獨立的.
+<pre>
+#include < stdio.h >
+
+void PrintMessage(int i)
+{
+	int a=2;
+	int b=3;
+	printf("%d %d %d\n",a,b,i);
+	printf("%d %d %d\n",&a,&b,&i);
+	i=5;
+}
+
+void main(void)
+{
+	// 這裏的變數跟上面都沒有關係.
+	int a=3;
+	int b=2;
+	int i=4; 
+	PrintMessage(i);
+	printf("%d %d %d\n",a,b,i); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
+	printf("%d %d %d\n",&a,&b,&i);
+}
+</pre>
+所以, 要是傳參數時, 傳的是變數的位址, 就可以在副程式中去改變主程式中變數的內容了.
+<pre>
+#include < stdio.h >
+
+void PrintMessage(int x, int *y) // 因為第2個參數傳的是位址, 所以宣告成指標
+{
+	printf("%d %d\n",x,*y);
+	printf("%d %d\n",&x,y); // 可以發現指標變數y就是主程式中的&i, i的位址.
+	*y=5;
+	x=2;
+}
+
+void main(void)
+{
+	// 這裏的變數跟上面都沒有關係.
+	int a=3;
+	int b=4; 
+	PrintMessage(a,&b); // 第2個參數傳它的數值, 第2個參數傳它的位址
+	printf("%d %d\n",a,b); // 有沒有發現, 執行PrintMessage的i=5後, 這裏的i仍然為4.
+	printf("%d %d\n",&a,&b); // 查看它們的位址
+}
+</pre>
+會傳回數字的副程式, 用法上可以很類似數學上的函數.
+
+<pre> 
+#include < stdio.h >
+
+// 這個函式會傳回正方形的面積
+int Area(int x) 
+{
+	return x*x;
+}
+
+void main(void)
+{
+	int l=3;
+	int area=Area(l);
+	printf("area=%d\n",area);
+}
+</pre>
+會傳回數字的函式, 並不一定要有人去接收這個數字.
+<pre>
+#include < stdio.h >
+
+int Area(int x) 
+{
+	int area=x*x;
+	printf("area=%d\n",area);
+	return x*x;
+}
+
+void main(void)
+{
+	int l=3;
+	Area(l); // 計算和輸出都一次做掉了.
+}
+</pre>
+<p>
+一般說來, 副程式中放的程式碼通常都是在整個程式中, 具備獨立功能的模組.<br>
+範例:寫一個做弧度與角度轉換的程式.
+<p>
+<pre>
+#include < stdio.h >
+
+#define PI 3.14159
+
+double rad2deg(double rad)
+{
+	return 180.0*rad/PI;
+}
+
+void main(void)
+{
+	double r;
+	printf("Input rad:");
+	scanf("%lf",&r);
+	printf("deg=%lf\n",rad2deg(r));
+}
+</pre>
+<h3>第二節:全域變數</h3>
+變數如果宣告在函式中, 那這個變數就只能在這個函式中來使用. 如果變數宣告在函式外面, 就成了全
+域變數.
+<pre>
+#include < stdio.h >
+
+int a=3; // 宣告在函式外面, 這個a可以被在這一行以後的任何一行程式碼使用
+
+void show(void)
+{
+	printf("%d\n",a);
+	a=2;
+}
+
+void main(void)
+{
+	show();
+	printf("%d\n",a);
+}
+</pre>
+
+函式中如果宣告了一個和全堿變數同名的變數, 那在使用時若沒特別指定, 用的會是函式中新宣告的那一個
+變數. 若是加上兩個"::"號, 會指定使用的是全堿變數.
+
+<pre>
+#include < stdio.h >
+
+int a=3; // 宣告在函式外面, 這個a可以被在這一行以後的任何一行程式碼使用
+
+void show(void)
+{
+	int a=0; // 如果自己又宣告了一個a
+	printf("%d\n",a); // 那這裏的a用的是local的
+	printf("%d\n",::a); // 如果加上兩個::, 那用到的會是外面的a
+}
+
+void main(void)
+{
+	show();
+}
+</pre>
+有的時候, 使用全域變數是必須的.
+因為函式中的變數都是放在記憶體的stack區段, 這個區段通常容量不會太大, 有時如果宣告了一個太大的
+陣列就會把stack都佔滿, 這時就需要把變數由函數中移到外面變成全域變數.
+<pre>
+#include < stdio.h >
+
+#define N 1024*1024
+
+void main(void)
+{
+	int a[N]; // 陣列宣告在main函式中, 由於N太大, 佔滿了整個stack, 所以程式一執行就當.
+}
+</pre>
+上面的程式只要把宣告拿到外面就可以正常執行了.
+<pre>
+#include < stdio.h >
+
+#define N 1024*1024
+
+int a[N]; // 宣告成全堿變數, 變數a不再放在stack中. 
+void main(void)
+{
+}
+</pre>
+<h3>第三節:把程式拆成多個檔案</h3>
+除了*.h的header檔可以獨立成另一個檔案外, *.c/*.cpp的程式檔也可以拆成多個檔案來寫作.<br>
+範例:main.cpp<br>
+<pre>
+#include < stdio.h >
+
+void show(void); // 使用show之前, 要先宣告它的參數及傳回值型態.
+
+void main(void)
+{
+	show();
+}
+</pre>
+show.cpp<br>
+<pre>
+#include < stdio.h > // 這是一個獨立的程式檔, 所以還是需要include
+
+void show(void)
+{
+	printf("Hello\n");
+}
+</pre>
+要這兩個檔案同時拿去compile, 才能產生出執行檔. 所以, 在習慣上, 每一個cpp檔就會有相對應的*.h
+檔, *.h檔中放的是*.cpp檔中可以讓其它cpp檔呼叫的函式宣告.<br>
+範例:main.cpp<br>
+<pre>
+#include < stdio.h >
+
+#include "show.h" // show()的宣告在這裏面
+
+void main(void)
+{
+	show();
+}
+</pre>
+這裏的show.h中只有一行.<br>
+show.h<br>
+<pre>
+void show(void); // 使用show之前, 要先宣告它的參數及傳回值型態.
+</pre>
+在a檔案中宣告的全域變數, 若要在b檔案中使用, 那b檔案宣告變數時, 要加上extern.
+<pre>
+[main.cpp]
+
+#include < stdio.h >
+#include "show.h" // show()的宣告在這裏面
+
+int a=3; // 全域變數a
+
+void main(void)
+{
+	show();
+}
+
+[show.cpp]
+
+#include < stdio.h > // 這是一個獨立的程式檔, 所以還是需要include
+
+extern int a; // 強調說, 這個全域變數a最先是宣告在其它檔案中
+
+void show(void)
+{
+	printf("Hello a=%d\n",a);
+}
+</pre>
+<h3>第四節:遞迴</h3>
+副程式可以除了可以呼叫其它副程式外, 還可以呼叫自己. 副程式自己呼叫自己就稱為遞迴.<br>
+範例:算階乘
+<pre>
+#include < stdio.h >
+
+int fact(int n)
+{
+	if ( n<=1 )
+		return 1;
+	return n*fact(n-1); // n!=n*(n-1)!
+}
+
+void main(void)
+{
+	int n;
+	scanf("%d",&n);
+	printf("%d!=%d\n",n,fact(n));
+}
+</pre> 
+遞迴的使用是資料結構及演算法中很基本的動作.
+<h3>第五節:函式指標</h3> 
+函式也可以是一個指標, 用來指向另一個函式.
+<pre>
+#include < stdio.h >
+
+void func1(void)
+{
+	printf("func1\n");
+}
+
+void func2(void)
+{
+	printf("func2\n");
+}
+
+void main(void)
+{
+	void (*f)(void);
+	f=func1; // f指向func1
+	(*f)();	 // 呼叫f, 也就等於呼叫func1
+	f=func2; // f指向func2
+	f();     // 呼叫f, 也就等於呼叫func2, 直接寫f()也行.
+}
+</pre>
+函式指標的應用<br>
+範例:用來減少判斷的次數.
+<pre>
+#include < stdio.h >
+#include < conio.h >
+
+int add(int a, int b)
+{
+	return a+b;
+}
+int sub(int a, int b)
+{
+	return a-b;
+}
+int mul(int a, int b)
+{
+	return a*b;
+}
+int div(int a, int b)
+{
+	return a/b;
+}
+#define N 10
+void main(void)
+{
+	int (*oper)(int a, int b);
+	char key;
+	int a[N],b[N],c[N];
+	int i;
+
+	for ( i=0; i < N; i++ )
+	{
+		a[i]=i+1;
+		b[i]=i+1;
+	}
+
+	printf("Press +,-,*,/ for add, sub, mul, div\n");
+	key=getch();
+	switch(key)
+	{
+	case '+':
+		oper=add;
+		break;
+	case '-':
+		oper=sub;
+		break;
+	case '*':
+		oper=mul;
+		break;
+	case '/':
+		oper=div;
+		break;
+	}
+
+	for ( i=0; i < N; i++ )
+	{
+		c[i]=oper(a[i],b[i]);
+		printf("%d ",c[i]);
+	}
+	printf("\n");
+}
+</pre>
+ 這個程式如果不用函式指標來寫, switch就必須放在迴圈當中, 每次迴圈都要做一次判斷.
+<pre>
+#include < stdio.h >
+#include < conio.h >
+
+int add(int a, int b)
+{
+	return a+b;
+}
+int sub(int a, int b)
+{
+	return a-b;
+}
+int mul(int a, int b)
+{
+	return a*b;
+}
+int div(int a, int b)
+{
+	return a/b;
+}
+#define N 10
+void main(void)
+{
+	char key;
+	int a[N],b[N],c[N];
+	int i;
+
+	for ( i=0; i < N; i++ )
+	{
+		a[i]=i+1;
+		b[i]=i+1;
+	}
+
+	printf("Press +,-,*,/ for add, sub, mul, div\n");
+	key=getch();
+
+	for ( i=0; i < N; i++ )
+	{
+		switch(key)
+		{
+		case '+':
+			c[i]=add(a[i],b[i]);
+			break;
+		case '-':
+			c[i]=sub(a[i],b[i]);
+			break;
+		case '*':
+			c[i]=mul(a[i],b[i]);
+			break;
+		case '/':
+			c[i]=div(a[i],b[i]);
+			break;
+		}
+		printf("%d ",c[i]);
+	}
+	printf("\n");
+} 
+</pre>
+用函式指標時, 還可以把函式當成參數傳遞出去.
+<pre>
+#include < stdio.h >
+
+int add(int a, int b)
+{
+	return a+b;
+}
+
+int sub(int a, int b)
+{
+	return a-b;
+}
+
+int oper( int a, int b, int (*f)(int a, int b) )
+{
+	return f(a,b);
+}
+
+void main(void)
+{
+	printf("add(1,2)=%d\n",oper(1,2,add) );
+	printf("sub(1,2)=%d\n",oper(1,2,sub) );
+}
+</pre>
+使用C的庫存函式qsort時, 就需要把判別大小的函式傳進去.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+int compare(const void *a, const void *b)
+{
+	int *c=(int *)a;
+	int *d=(int *)b;
+	if ( *c > *d )
+		return 1;
+	else if ( *c < *d )
+		return -1;
+	else
+		return 0;
+}
+
+#define N 10
+#define MAX_NUMBER 100
+
+void main(void)
+{
+	int i;
+	int a[N];
+	srand( time(NULL) );
+	for ( i=0; i < N; i++ )
+	{
+		a[i]=rand()%(MAX_NUMBER+1);
+		printf("%d ",a[i]);
+	}
+	printf("\n");
+
+	qsort(a, N, sizeof(int), compare);
+	for ( i=0; i < N; i++ )
+	{
+		printf("%d ",a[i]);
+	}
+	printf("\n");
+}
+</pre>
+<h3>第五節:傳遞陣列參數</h3>
+把陣列當參數來傳遞時, 要從記憶體的角度來看. 如果傳遞的只是陣列中的一個變數, 那和傳普通變數
+沒有什麼分別. 如果傳的是整個陣列, 傳遞的東西會是陣列的位址, 基本上, 傳的就是一個指標.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+#define N 10
+#define MAX_NUMBER 10
+
+void output1(int a[]) // 要寫成void output1(int a[N])也行
+{
+	for ( int i=0; i < N; i++ )
+	{
+		printf("%d ",a[i]);
+	}
+	printf("\n");
+}
+
+void output2(int *a)
+{
+	for ( int i=0; i < N; i++ )
+	{
+		printf("%d ",a[i]);
+	}
+	printf("\n");
+}
+
+void main(void)
+{
+	int i;
+	int a[N];
+	srand( time(NULL) );
+	for ( i=0; i < N; i++ )
+	{
+		a[i]=rand()%(MAX_NUMBER+1);
+	}
+	output1(a);
+	output2(a);
+}
+</pre>
+為什麼副程式中的陣列可以不給定size? 因為陣列傳過去的只是陣列的起始位址. 而陣列中要拿變數出
+來用只需要從&a+i這個位址去抓數值來用即可, 所以在副程式的陣列參數中沒有一定要再說一定它的size.
+不過, 如果陣列是N維的, 最少要給定N-1維的size才行. 回到第四章去回憶一下陣列每個變數的記憶體排列法.
+會發現第1個維度始終不需要在這個計算中出現, 所以第1個維度可以不給定大小.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+#define ROW 5
+#define COL 3
+#define MAX_NUMBER 20
+
+void output(int a[][COL]) // 第1維可以不給, 因為和計算位址無關 
+{
+	for ( int i=0; i < ROW; i++ )
+	{
+		for ( int j=0; j < COL; j++ )
+		{
+			printf("%3d ",a[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void main(void)
+{
+	int i,j;
+	int a[ROW][COL];
+	srand( time(NULL) );
+	for ( i=0; i < ROW; i++ )
+	{
+		for ( j=0; j < COL; j++ )
+		{
+			a[i][j]=rand()%(MAX_NUMBER+1);
+		}
+	}
+	output(a);
+}
+</pre>
+所以, 陣列是可以經由傳遞來做變型的動作.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+#define ROW 5
+#define COL 3
+#define MAX_NUMBER 20
+
+void output(int a[COL]) 
+{
+	for ( int j=0; j < COL; j++ )
+	{
+		printf("%3d ",a[j]);
+	}
+	printf("\n");
+}
+
+void main(void)
+{
+	int i,j;
+	int a[ROW][COL];
+	srand( time(NULL) );
+	for ( i=0; i < ROW; i++ )
+	{
+		for ( j=0; j < COL; j++ )
+		{
+			a[i][j]=rand()%(MAX_NUMBER+1);
+		}
+		output(a[i]); // 把2維的陣列當成1維陣列傳出去.
+	}
+}
+</pre>
+<h3>第六節:傳參數給主程式</h3>
+副程式可以傳參數, 主程式也可以傳參數可它. 主程式傳參數是從執行檔後面的參數得到的.
+<p>
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+void main(int argc, char *argv[])
+{
+	for ( int i=0; i < argc; i++ )
+	{
+		printf("%s\n",argv[i]);
+	}
+}
+</pre>
+argc會得到參數的數目, *argv[]會得到參數的內容, argv[0]是第1個參數,
+argv[1]是第2個參數.
+第1個參數固定會傳入執行檔的名字. 所以argc一定會>=1.
+而所有的參數都會用字串的型態傳入.
+所以若要傳入數字時, 要用atoi把字串轉換回數字.<p>
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+void main(int argc, char *argv[])
+{
+	int i;
+	if ( argc<2 )
+	{
+		printf("missing argument\n");
+		exit(0);
+	}
+	i=atoi( argv[1] );
+	printf("%d\n", i );
+}
+</pre>

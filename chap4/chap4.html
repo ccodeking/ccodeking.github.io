@@ -1,0 +1,637 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
+<title>第四章:陣列及字串</title>
+</HEAD>
+
+<h2 align=center>第四章:陣列及字串</h2>
+<h3>第一節:簡介</h3>
+為什要用陣列? 想像一下如果我們要寫一個程式, 
+程式要求要輸入全班同學的期中考數學科成績, 寫成程式會長什麼樣子?
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int num1, num2, num3, num4, num5;
+	scanf("%d",&num1);
+	scanf("%d",&num2);
+	scanf("%d",&num3);
+	scanf("%d",&num4);
+	scanf("%d",&num5);
+}
+</pre>
+上面的程式是全班只有5位學生時的情形, 那要是全班有50位學生時, 程式要怎麼寫?
+這時就可求助於陣列(Array)
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i;
+	int student[50];
+	
+	for ( i=0; i<50; i++ )
+	{
+		scanf("%d", &student[i]);
+	}
+}
+</pre>
+程式碼明顯的精簡許多, 用原先的寫法最少要宣告50個變數, 還要寫50個scanf.<p>
+使用#define的好處在這裏就可以看出來.
+<pre>
+#include < stdio.h >
+
+#define STUDENTS 5
+
+void main(void)
+{
+	int i;
+	int student[STUDENTS];
+	// 只要改define中STUDENTS的數值, 陣列大小和迴圈要跑的次數都會同時改變
+	for ( i=0; i < STUDENTS; i++ )
+	{
+		scanf("%d", &student[i]);
+		printf("I get %d\n",student[i]);
+	}
+}
+</pre>
+
+簡單的來說, 陣列就是一次宣告出許多個相同型態的變數來使用.<br>
+int a[5];<br>
+上面的語法會宣告出5個整數, 要取用陣列中的某個變數來用時, 要給一個索引值, 
+要取用這5個整數的方法分別是
+<blockquote>
+<pre>
+a[0]=1; // 把a[0]設定為1
+a[1]=2; // 把a[1]設定為2
+a[2]=3; // 把a[2]設定為3
+a[3]=4; // 把a[3]設定為4
+a[4]=5; // 把a[4]設定為5
+a[5]是不存在的.
+</pre>
+</blockquote>
+宣告大小為N時, 取用的索引值範圍為0,1,2,.....N-1
+<h2>第二節:一維陣列的使用</h2>
+宣告陣列時, 同樣一開始可以設定好它們的初值
+<pre>
+void main(void)
+{
+	int a[5]={1,2,3,4,5};
+	// 設定 a[0]=1, a[1]=2, a[2]=3, a[3]=4, a[4]=5
+	int b[]={1,2,3};
+	// 若size沒指定, 因為給了3個數字, 在此會自動設定為b[3];
+}
+</pre>
+設定陣列時, 還常和迴圈一起使用
+<pre>
+void main(void)
+{
+	int a[5];
+	int i;
+	for ( i=0; i<5; i++ )
+	{
+		a[i]=i;
+	}
+	// 設定a[0]=0, a[1]=1, a[2]=2, a[3]=3, a[4]=4
+}
+</pre>
+
+範例:讀入5個數字, 求出它們的平均值.
+<pre>
+#include < stdio.h >
+
+#define NUM 5
+
+void main(void)
+{
+	int i;
+	float sum=0;
+	float aver;
+	float num[NUM];
+	
+	// 分別讀入5個數值
+	for ( i=0; i < NUM; i++ )
+	{
+		scanf("%f", &num[i]);
+	}
+	
+	// 計算總和
+	for ( i=0; i < NUM; i++ )
+	{
+		sum+=num[i];
+	}
+	// 求平均值
+	aver=sum/(float)NUM;
+	printf("average=%f\n",aver);
+}
+</pre>
+
+<h3>第三節:多維陣列</h3>
+使用陣列時,只用了一個索引值, 叫做一維陣列. 我們可以宣告出需要多個索引
+值的陣列來.
+<pre>
+void main(void)
+{
+	int a[2][2];
+	// 這時候, 有a[0][0], a[0][1], a[1][0], a[1][1]等4個變數可以使用
+}
+</pre>
+設定二維陣列初值的方法為
+<pre>
+void main(void)
+{
+	int a[2][2]={ {00, 01},
+		      {10, 11} };
+	int b[2][2]={ 00,01,10,11 };
+}
+</pre>
+實實上, 陣列在記憶體中都是一塊連續的記憶體空間.
+一維陣列時很容易想像:
+<blockquote>
+<pre>
+int a[5];
+a[0]的位址是&a+0;
+a[1]的位址是&a+1;
+a[2]的位址是&a+2;
+a[3]的位址是&a+3;
+a[4]的位址是&a+4;
+<pre>
+</blockquote>
+二維陣列同樣會是一塊連續的記憶體空間
+<pre>
+int a[5][5];
+a[0][0]的位址是&a+0*5+0;
+a[0][1]的位址是&a+0*5+1;
+a[0][2]的位址是&a+0*5+2;
+.....
+a[1][1]的位址是&a+1*5+1;
+.....
+a[x][y]的位址是&a+x*5+y;
+結論
+int b[N][M];
+b[x][y]的位址是&b+x*M+y;
+int c[N][M][P];
+c[x][y][z]的位址是&c+x*M*P+y*P+z;
+</pre>
+範例:印出陣列中所有變數的記憶體位址
+<pre>
+#include < stdio.h >
+
+#define N 3
+#define M 2
+
+void main(void)
+{
+	char a[N][M];
+	for ( int i=0; i < N; i++ )
+	{
+		for ( int j=0; j < M; j++ )
+		{
+			printf("%d\n",&a[i][j]);
+		}
+	}
+}
+</pre>
+<h3>第三節:陣列的應用(1)</h3>
+範例:用一維陣列來儲存向量, 把兩個向量相加, 結果記錄在另一個陣列中
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+#define DIMENSION 3
+#define MAX_NUMBER 10
+
+void main(void)
+{
+	int vector1[DIMENSION];
+	int vector2[DIMENSION];
+	int vector3[DIMENSION];
+	int i;
+
+	// 給定計算亂數的初值
+	srand( time(NULL) );
+
+	for ( i=0; i < DIMENSION; i++ )
+	{
+		// 利用亂數來設定數值
+		vector1[i]=rand()%(MAX_NUMBER+1);
+		vector2[i]=rand()%(MAX_NUMBER+1);
+	}
+	
+	// 印出vector1的內容
+	printf("(");
+	for ( i=0; i < DIMENSION; i++ )
+	{
+		printf("%d ",vector1[i]);
+	}
+	printf(")+");
+	// 印出vector2的內容
+	printf("(");
+	for ( i=0; i < DIMENSION; i++ )
+	{
+		printf("%d ",vector2[i]);
+	}
+	printf(")=");
+
+	// 計算並印出vector3的內容
+	printf("(");
+	for ( i=0; i < DIMENSION; i++ )
+	{
+		vector3[i]=vector1[i]+vector2[i];
+		printf("%d ",vector3[i]);
+	}
+	printf(")\n");
+}
+</pre>
+範例:記錄全班同學的考試成績, 把低於60分不及格的同學號碼印出來
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < time.h >
+
+#define STUDENTS 30
+#define MAX_NUMBER 100
+
+void main(void)
+{
+	int i;
+	int student[STUDENTS];
+	// 給定計算亂數的初值
+	srand( time(NULL) );
+
+	for ( i=0; i < STUDENTS; i++ )
+	{
+		// 利用亂數來設定數值
+		student[i]=rand()%(MAX_NUMBER+1);
+	}
+	
+	for ( i=0; i < STUDENTS; i++ )
+	{
+		if ( student[i] < 60 )
+		{
+			printf("Student %d get %d points, fail!\n", i, student[i]);
+		}
+	}
+}
+</pre>
+
+<h3>第四節:字串</h3>
+在程式語言中, 一個英文單字, 一個句子, 都可以當成一個字串.
+簡單的說, 要記錄size超過一個字母的東西, 就叫做一個字串.
+在C語言中, 一個一維的的字元陣列可以當成一個字串.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	char a[]={"Hello"};
+	printf("%s \n",a);
+}
+</pre>
+上面的寫法, 相當於
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	char a[6];
+	a[0]='H';
+	a[1]='e';
+	a[2]='l';
+	a[3]='l';
+	a[4]='o';
+	a[5]='\0'; // a[5]=0; 0是字串的結束符號
+	printf("%s \n",a);
+}
+</pre>
+或是
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	char a[6]={'H','e','l','l','o','\0'};
+	printf("%s \n",a);
+}
+</pre>
+利用scanf來讀取一個字串的方法如下
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	char a[80];
+	scanf("%s",a);
+	printf("%s \n",a);
+}
+</pre>
+用scanf來讀字串, 字串中不能有空白. 若有空白會被當成兩個不同的字串.
+要讀取有空白的字串要用gets;
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	char a[80];
+	gets(a);
+	printf("%s \n",a);
+}
+</pre>
+字串不能直接互相做比對, 下面的程式是沒有意義的
+<pre>
+#include < stdio.h >
+
+void main(void)
+{
+	char a[]="Hello";
+	char b[]="How are you";
+	// 下面的比較會變成 &a 和 &b 這兩個位址互相去比較
+	if ( a==b )
+	{
+		printf("a==b\n");	
+	}
+}
+</pre>
+比較字串要用C的庫存函式strcmp
+<pre>
+#include < stdio.h >
+#include < string.h >
+void main(void)
+{
+	char a[]="Hello";
+	char b[]="How are you";
+	if ( strcmp(a,b)==0 )
+	{
+		printf("a==b\n");	
+	}
+	else
+	{
+		printf("a!=b\n");
+	}	
+}
+</pre>
+定義在string.h中經常使用的函式有
+<table border=1>
+<tr><td>
+函式名稱
+<td>
+用途
+<tr><td>
+strcpy
+<td>
+copy字串
+<tr><td>
+strcat
+<td>
+把一個字串插到另一個字串的後面
+<tr><td>
+strlen
+<td>
+計算字串的長度
+</table>
+<p>
+範例:
+<pre>
+#include < stdio.h >
+#include < string.h >
+void main(void)
+{
+	char a[80]="Hello,";
+	char b[]=" how are you?";
+	char c[80];
+	strcat(a,b);
+	printf("%s\n",a);
+	strcpy(c,a);
+	printf("%s\n",c);
+	printf("%d\n", strlen(c) );
+}
+</pre>
+<h3>第4節:字串應用(1)</h3>
+範例:把一個字串反過來
+<pre>
+#include < stdio.h >
+#include < string.h >
+
+#define MAX_STRING 80
+
+void main(void)
+{
+	char a[MAX_STRING];
+	char b[MAX_STRING];
+	int  len;
+	int  i,j;
+	
+	gets(a);
+	len=strlen(a);
+
+	for ( i=0, j=len-1; i < len; i++, j-- )
+	{
+		b[j]=a[i];
+	}
+	b[len]='\0';
+	printf("%s \n",b);
+}
+</pre>
+範例:把字串中的空白字元都拿掉
+<pre>
+#include < stdio.h >
+#include < string.h >
+
+#define MAX_STRING 80
+
+void main(void)
+{
+	char a[MAX_STRING];
+	char b[MAX_STRING];
+	int  len;
+	int  i,j;
+	
+	gets(a);
+	len=strlen(a);
+
+	for ( i=0, j=0; i <= len; i++ )
+	{
+		if ( a[i]!=' ' )
+			b[j++]=a[i];
+	}
+	printf("%s \n",b);
+}
+</pre>
+另一種解法
+<pre>
+#include < stdio.h >
+#include < string.h >
+
+#define MAX_STRING 80
+
+void main(void)
+{
+	char a[MAX_STRING];
+	int  len;
+	int  i,j;
+	
+	gets(a);
+	len=strlen(a);
+
+	for ( i=0, j=0; i < len; i++ )
+	{
+		if ( a[i]!=' ' )
+			a[j++]=a[i];
+	}
+	a[j]='\0';
+	printf("%s \n",a);
+}
+</pre>
+<h3>第五節:字串進階</h3>
+如果字串當中的字元都是數字, C的庫存函式中有提供把字串轉換回數字的函式.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+void main(void)
+{
+	char string[]="100";
+	char string2[]="0.5";
+	int  num;
+	double num2;
+	num=atoi(string);
+	// 函式atoi可以把字串換算成整數
+	num2=atof(string2);
+	// 函式atof可以把字串換算成浮點數
+	printf("%d %lf\n",num,num2);
+}
+</pre>
+用sscanf也可以做到同樣的效果
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+void main(void)
+{
+	char string[]="100";
+	char string2[]="0.5";
+	int  num;
+	double num2;
+	sscanf(string,"%d",&num);
+	sscanf(string2,"%lf",&num2);
+	// sscanf和scanf用法一樣, 只是輸入的來源改成從字串中讀取而不是從鍵盤
+	printf("%d %lf\n",num,num2);
+}
+</pre>
+
+相對地, 數字也可以反回去轉成字串, 這要用sprintf來做到.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+void main(void)
+{
+	char string[80];
+	int  num=5;
+	float fnum=0.5;
+	sprintf(string,"num=%d fnum=%f",num,fnum);
+	// sprintf的用法和printf完全相同, 
+	// 只是printf把結果印在螢幕上, sprintf把結果印到一個字串中.
+	printf("%s\n",string);
+}
+</pre>
+atoi及atof函式本身的運作原理很簡單, 其實就是一個一個字元去把數字算出來而已.
+下面是一個簡單的atoi函式的過程.
+<pre>
+// 模擬atoi函式的運作
+#include < stdio.h >
+#include < stdlib.h >
+#include < string.h >
+
+void main(void)
+{
+	char string[80];
+	int  i;
+	int	 len;
+	int  num;
+
+	gets(string);
+	len=strlen(string);
+
+	num=0;
+	for ( i=0; i < len; i++ )
+	{
+		num*=10;
+		num+=string[i]-'0';
+	}
+	printf("%d\n",num);
+}
+</pre>
+sprintf的原理也是一個一個數字把它再換回去成為字元而已, 下面是一個把數字轉回字串的程式
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < string.h >
+
+void main(void)
+{
+	char string[80];
+	char temp;
+	int  i,j;
+	int  len;
+	int  num;
+	scanf("%d",&num);
+	len=0;
+	do
+	{
+		string[len++]='0'+num%10;
+		num/=10;
+	}while(num>0);
+	string[len]='\0';
+	// 字串反轉
+	for ( i=0, j=len-1; i < len/2; i++,j-- )
+	{
+		temp=string[j];
+		string[j]=string[i];
+		string[i]=temp;
+	}
+	printf("%s\n",string);
+}
+</pre>
+為什麼會需要用到sprintf?有很多情形下, 不會使用到printf來做輸出. 像是在視窗作業系統
+開啟一個Message Box來顯示訊息. 此時就需要先把需要輸出的數字都轉成字串, 再透過WIN32 API
+函式來秀出訊息.<br>
+範例:開啟一個MessageBox來顯示計算求得的正方形面積
+<pre>
+#include < stdio.h >
+#include < windows.h >
+void main(void)
+{
+	char string[80];
+	int  r;
+	int  area;
+	scanf("%d",&r);
+	area=r*r;
+	sprintf(string,"Area=%d",area);
+	MessageBox(NULL,string,"Hello",MB_OK);
+	// Win32 API之一, 會開啟一個簡單的message box, 印出第2個參數的字串內容
+}
+</pre>
+那為什麼需要用到atoi/atof?用scanf來讀鍵盤時,使用者可能會輸入錯誤. 例如說要輸入數字卻輸入字元.
+比較好的方法就是scanf中讀進去的東西都先把它當成字串, 檢查字串中有沒有不合理的東西出現.
+不合理就要求重新輸入, 合理的話才把字串轉成數字.
+<pre>
+#include < stdio.h >
+#include < stdlib.h >
+#include < string.h >
+
+void main(void)
+{
+	char string[80];
+	int  num;
+	int  len;
+	while(1)
+	{
+		printf("Please input an integer:");
+		scanf("%s",string);
+		// 檢查字串中有沒有不是數字的字元出現
+		len=strlen(string);
+		for ( int i=0; i < len; i++ )
+		{
+			if ( string[i] < '0' || string[i] > '9' )
+				break;
+		}
+		// 如果每個字元都是'0','1',...'9'當中的任一個, 就跳出迴圈
+		if ( i==len )
+			break;
+	}
+	num=atoi(string);
+	printf("I get %d\n",num);
+}
+</pre>

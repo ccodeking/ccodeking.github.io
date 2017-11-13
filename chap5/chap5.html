@@ -1,0 +1,299 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
+<title>第五章:自訂型態</title>
+</HEAD>
+
+<h2 align=center>第五章:自訂型態</h2>
+<h3>第一節:結構struct</h3>
+先看一個範例, 假設記錄一個人的基本資料需要他的"姓名","身高","體重", 寫成程式的長相如下:
+<pre>
+#include < stdio.h >
+
+void main(void)
+{
+	char name1[80], name2[80];
+	int  height1, height2;
+	int  weight1, weight2;
+	gets(name1);
+	scanf("%d",&height1);
+	scanf("%d",&weight1);
+	gets(name2);
+	scanf("%d",&height2);
+	scanf("%d",&weight2);
+}
+</pre>
+在C語言中, 有提供一個比較好的方法來自己定義出一群變數的組合.
+<pre>
+#include < stdio.h >
+
+struct Person
+{
+	char name[80];
+	int  height;
+	int  weight;
+};
+
+void main(void)
+{
+	Person p1;
+	Person p2;
+	gets(p1.name);
+	scanf("%d",&p1.height);
+	scanf("%d",&p1.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p1.name,p1.height,p1.weight);
+	gets(p2.name);
+	scanf("%d",&p2.height);
+	scanf("%d",&p2.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
+}
+</pre>
+寫成陣列長相如下
+<pre>
+#include < stdio.h >
+
+#define PEOPLE 2
+
+struct Person 
+{
+	char name[80];
+	int  height;
+	int  weight;
+};
+
+void main(void)
+{
+	Person p[PEOPLE];
+	for ( int i=0; i < PEOPLE; i++ )
+	{
+		fflush(stdin);
+		gets( p[i].name );
+		scanf("%d", &p[i].height);
+		scanf("%d", &p[i].weight );
+		printf("Name:%s\nHeight:%d\nWeight:%d\n", p[i].name, p[i].height, p[i].weight);
+	}
+}
+</pre>
+struct中可以放任何型態, 當然也可以放進一個自訂的型態.
+<pre>
+#include < stdio.h >
+
+struct Vertex3f
+{
+	float x,y,z;
+};
+
+struct Triangle
+{
+	Vertex3f a,b,c;
+};
+
+void main(void)
+{
+	Triangle t={ {0,0,0}, {0,1,0}, {1,1,0} };
+	// 上面設定初值的結果會跟下面的結果一樣
+	t.a.x=0; t.a.y=0; t.a.z=0;
+	t.b.x=0; t.b.y=1; t.b.z=0;
+	t.c.x=1; t.c.y=1; t.c.z=0;
+}
+</pre>
+C語言有一個指令叫做sizeof, 可以用來看每個型態會佔用多少位元.
+<pre>
+#include < stdio.h >
+
+struct Person
+{
+	char name[80];
+	int  height;
+	int  weight;
+};
+
+void main(void)
+{
+	int a=0;
+	Person p={"Peter",180,80};
+
+	printf("%d %d %d %d %d\n", sizeof(char), sizeof(short), sizeof(int), sizeof(float), sizeof(double));
+	printf("%d %d %d\n",sizeof(Person), sizeof(p), sizeof(a) );
+}
+<pre>
+
+<h3>第二節:union</h3>
+union也是用來自訂一個各種型態的組合, 不過和struct不一樣的是, union中的變數都會佔用同一塊記憶體.<br>
+範例:用來取出高位元及低位元
+<pre>
+#include < stdio.h >
+
+union u1
+{
+	char a[2];
+	// a[0]就會等於b的lowbyte, a[1]就會等於b=hibyte
+	short b;
+};
+
+void main(void)
+{
+	u1 u;
+	u.b=100;
+	printf("sizeof=%d hibyte=%d, lowbyte=%d\n", sizeof(u), u.a[1], u.a[0]);
+}
+</pre>
+範例:用來設定3維空間的點
+<pre>
+#include < stdio.h >
+
+struct Vertex3f
+{
+	float x,y,z;
+};
+
+union UVertex3f
+{
+		float p[3];
+		Vertex3f v;
+};
+
+void main(void)
+{
+	UVertex3f vertex;
+	vertex.p[0]=0.0f; 
+	vertex.p[1]=1.0f; 
+	vertex.p[2]=2.0f;
+	printf("(%f,%f,%f)\n", vertex.v.x, vertex.v.y, vertex.v.z);
+}
+</pre>
+範例:用來儲存不同型態的變種,(省記憶體)
+<pre>
+#include < stdio.h >
+
+#define INTEGER 1
+#define FLOAT   2
+#define DOUBLE  3
+
+#define TYPE FLOAT
+
+union UHeight
+{
+	int	iheight;
+	float	fheight;
+	double	dheight;
+};
+
+union UWeight
+{
+	int	iweight;
+	float	fweight;
+	double	dweight;
+};
+
+struct Person
+{
+	char	name[80];
+	UHeight height;
+	UWeight weight;
+};
+
+void main(void)
+{
+	Person p;
+	gets(p.name);
+
+	switch(TYPE)
+	{
+	case INTEGER:
+		scanf("%d", &p.height.iheight);
+		scanf("%d", &p.weight.iweight);
+		break;
+	case FLOAT:
+		scanf("%f", &p.height.fheight);
+		scanf("%f", &p.weight.fweight);
+		break;
+	case DOUBLE:
+		scanf("%lf", &p.height.dheight);
+		scanf("%lf", &p.weight.dweight);
+		break;
+	}
+
+	printf("%s\n",p.name);
+	printf("Height:%d\nWeight:%d\n", p.height.iheight, p.weight.iweight);
+	switch(TYPE)
+	{
+	case INTEGER:
+		printf("Height:%d\nWeight:%d\n", p.height.iheight, p.weight.iweight);
+		break;
+	case FLOAT:
+		printf("Height:%f\nWeight:%f\n", p.height.fheight, p.weight.fweight);
+		break;
+	case DOUBLE:
+		printf("Height:%lf\nWeight:%lf\n", p.height.dheight, p.weight.dweight);
+		break;
+	}
+}
+</pre>
+<h3>第三節:C語言中真正的寫法</h3>
+事實, 上面的寫法, 都是C++的用法, C語言中要使用宣告struct變數時, 要加上struct這個字.
+<pre>
+#include < stdio.h >
+
+struct Person
+{
+	char name[80];
+	int  height;
+	int  weight;
+};
+
+void main(void)
+{
+	struct Person p1;
+	struct Person p2;
+	gets(p1.name);
+	scanf("%d",&p1.height);
+	scanf("%d",&p1.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p1.name,p1.height,p1.weight);
+	gets(p2.name);
+	scanf("%d",&p2.height);
+	scanf("%d",&p2.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
+}
+</pre>
+還有人會用"typdef"來自訂一個型態. 這樣的寫法就比較像C++的寫法了.
+<pre>
+#include < stdio.h >
+
+struct _Person
+{
+	char name[80];
+	int  height;
+	int  weight;
+};
+
+typedef struct _Person Person;
+
+void main(void)
+{
+	Person p1;
+	Person p2;
+	gets(p1.name);
+	scanf("%d",&p1.height);
+	scanf("%d",&p1.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p1.name,p1.height,p1.weight);
+	gets(p2.name);
+	scanf("%d",&p2.height);
+	scanf("%d",&p2.weight);
+	printf("Name:%s\nHeight:%d cm\nWeight:%d kg\n",p2.name,p2.height,p2.weight);
+}
+</pre>
+typedef可以把所有C語言中的型態改用程式設計師自己取的名字來取代.
+<pre>
+#include < stdio.h >
+
+typedef unsigned char UINT8;
+typedef unsigned short UINT16;
+typedef unsigned long  UINT32;
+
+void main(void)
+{
+	UINT8 a=1;
+	UINT16 b=2;
+	UINT32 c=3;
+}
+</pre>

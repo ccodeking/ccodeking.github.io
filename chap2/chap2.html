@@ -1,0 +1,548 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
+<title>第二章:流程控制</title>
+</HEAD>
+
+
+<h2 align=center>第二章:流程控制</h2>
+<h3 align=left>第一節:IF-ELSE</h3>
+
+沒有流程控制的話, 程式只能一行一行的按順序跑到尾.
+流程控制可以讓設計師在程式中能隨時選擇要跳過某些程式碼不執行.
+<p>
+範例:這是一個很用粗略的方法來判斷一個人是不是過重的程式
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight;
+	printf("Input your weight:");
+	// 讀入體重
+	scanf("%d",&weight);
+	if ( weight > 100 )
+	{
+	// 假如體重大於100公斤, 就說這個人太胖了	
+		printf("You're too fat\n");
+	}
+	else
+	{
+	// 假如體重沒有大於100公斤, 這個人就還好
+		printf("You're ok.\n");
+	}
+}
+</pre>
+if ( )的小括號中放的是一個邏輯的判斷, 當判斷成立時, 接下來在{ }當中的程式碼就會被執行.<br>
+example:
+
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight;
+	scanf("%d", &weight);
+	if ( weight>100 )
+	{
+	// 當weight值>100時, { }中的printf就會執行
+		printf("You're too fat\n");
+	}
+}
+</pre>
+加上else { }, 則是會在判斷不成立時, 執行{ }當中的程式碼.
+若沒有加else, 則代表判斷不成立時不特別去做任何事.
+<p>
+邏輯判斷可以使用的運算符號如下
+<table border=1>
+<tr><td>
+運算符號
+<td>
+意義
+<tr><td>
+>
+<td>
+大於
+<tr><td>
+<
+<td>
+小於
+<tr><td>
+>=
+<td>
+大於或等於
+<tr><td>
+<=
+<td>
+小於或等於
+<tr><td>
+==
+<td>
+等於
+<tr><td>
+!=
+<td>
+不等於
+</table>
+<p>
+if ( ) 括號中的可以同時放很多個判斷式子.<br>
+範例:一個人若身高低於180公分, 而且體重大於100公斤的話, 他就是太胖了.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight;
+	int height;
+	printf("Input your height and weight\n");
+	scanf("%d %d", &height, &weight);
+	
+	if ( height<180 && weight>100 )
+	//              ^^  這是而且的意思
+	//這裏要做的判斷就是, 看看height是不是小於180而且weight又大於100
+	{
+		printf("You're too fat.\n");
+	}
+	else
+	{
+		printf("You're ok.\n");
+	}
+}
+</pre>
+
+用來連結邏輯判斷的符號有:
+<table border=1>
+<tr><td>
+符號
+<td>
+意義
+<tr><td>
+&&
+<td>
+"而且", 所有的條件都要成立, 整個判斷才會成立
+<tr><td>
+||
+<td>
+"或", 只要有任何一個條件成立, 整個判斷就會成立
+</table>
+<p>
+有一個比較特別的符號叫做邏輯反相, 它會直接把一個"成立"的條件轉成"不成立",
+把"不成立"的條件直接當成"成立".邏輯反相的運算符號是一個驚嘆號"!".<br>
+example:
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight;
+	scanf("%d",&weight);
+	if ( !(weight<100) )
+	// 示範驚嘆號!如何使用
+	{
+		printf("You're too fat\n");
+	}
+	else
+	{
+		printf("You're ok\n");
+	}
+}
+</pre>
+
+<p>
+若我們要判斷的條件不只是做"對"或"錯"的二分法時, 可以用if--else if來做多重判斷.<br>
+範例:讀入考試成績, 判斷這個分數的等級是A/B/C/D/E的那個等級.
+
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int points;
+	char level;
+	printf("Input your points:\n");
+	scanf("%d", &points);
+	if ( points>=90 && points<=100 )
+	// 分數在90..100分間的是A
+	{
+		level='A';
+	}
+	else if ( points>=80 && points<90 )
+	// 分數在80..89分間的是B
+	{
+		level='B';
+	}
+	else if ( points>=70 && points<80 )
+	// 分數在70..79分間的是C
+	{
+		level='C';
+	}
+	else if ( points>=60 && points<70 )
+	// 分數在60..69分間的是D
+	{
+		level='D';
+	}
+	else
+	// 剩下的就是60分以下的, 等級是E.
+	{
+		level='E';
+	}
+	printf("You get %c\n",level);
+}
+</pre>
+
+if () { } 的大括號中當中可以於入任何的程式碼, 所以當然可以再放另一個if進去.
+這個叫做巢狀結構.<br>
+example:
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight, height;
+	scanf("%d %d", &height, &weight);
+	if ( height<180 )
+	{
+		if ( weight>100 )
+		{
+			printf("You're too fat.\n");
+		}
+		else
+		{
+			printf("You're ok.\n");
+		}
+	}
+	else
+	{
+		printf("You're ok.\n");
+	}
+}
+</pre>
+<p>
+範例:讀入一個二維空間的座標, 判斷它在哪個象限上.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	float x,y;
+	printf("input x y:\n");
+	scanf("%f %f",&x,&y);
+	if ( x>0 )
+	{
+		if ( y>0 )
+		{
+			printf("1\n");
+		}
+		else if ( y<0 )
+		{
+			printf("4\n");
+		}
+		else
+		{
+			printf("in axis\n");
+		}
+	}
+	else if ( x<0 )
+	{
+		if ( y>0 )
+		{
+			printf("2\n");
+		}
+		else if ( y<0 )
+		{
+			printf("3\n");
+		}
+		else
+		{
+			printf("in axis\n");
+		}
+	}
+	else
+	{
+		printf("in axis\n");
+	}
+}
+</pre>
+<p>
+<h3>第二節:SWITCH--CASE</h3>
+如果多重if--else if中都是在判斷兩個數字是否"相等", 可以改用switch-case來寫.<br>
+範例, 輸入兩個數字, 再鍵入+,-,*,/任一鍵, 由鍵入的鍵來決定要對前面的兩個數字來做
++或-或*或/
+<pre>
+#include < stdio.h >
+#include < conio.h >
+void main(void)
+{
+	float a,b,ans;
+	char key;
+	printf("input two number:");
+	scanf("%f %f",&a,&b);
+	printf("press +,-,*,/:");
+	key=getch();
+	if ( key=='+' )
+	{
+		ans=a+b;
+	}
+	else if ( key=='-' )
+	{
+		ans=a-b;
+	}
+	else if ( key=='*' )
+	{
+		ans=a*b;
+	}
+	else if ( key=='/' )
+	{
+		ans=a/b;
+	}
+	else
+	{
+		printf("Undefined key\n");
+		exit(0);
+	}
+	printf("%f%c%f=%f\n",a,key,b,ans);
+}
+</pre>
+上面的多重判斷可以用switch--case來改寫如下:
+<pre>
+#include < stdio.h >
+#include < conio.h >
+
+void main(void)
+{
+	float a,b,ans;
+	char key;
+	printf("input two number:");
+	scanf("%f %f",&a,&b);
+	printf("press +,-,*,/:");
+	key=getch();
+	switch(key)
+	{
+	case '+':
+		ans=a+b;
+		break;
+	case '-':
+		ans=a-b;
+		break;
+	case '*':
+		ans=a*b;
+		break;
+	case '/':
+		ans=a/b;
+		break;
+	default:
+		printf("Undefined key\n");
+		exit(0);
+	}
+	printf("%f%c%f=%f\n",a,key,b,ans);
+}
+</pre>
+switch--case會根據key的值找出程式要從哪一行的case程式碼來繼續執行,
+程式會從找到的那一個case開始向下跑, 一直到遇見break為止, 所以, 若
+兩個case之間沒有加break, 那可能會出現多跑了一些程式碼的情形.
+break的功能是用來跳出一段在{ }之中程式碼
+<br>
+範例:
+<pre>
+#include <conio.h>
+void main(void)
+{
+	char key=getche();
+	
+	switch( p )
+	{
+	case 'A':
+		printf("You press A\n");
+	case 'a':
+		printf("You press a\n");
+		break;
+	// 如果按下的是'A', 那程式會印出兩行東西, 一直到看到上面這個break為止	
+	case 'B':
+		printf("You press B\n");
+		break;		
+	case 'b':
+		printf("You press b\n");
+		break;
+	}
+}
+</pre>
+switch-case的限制:
+<ul>
+<li>
+case 後面放的數值不能是變數, 一定要是定值
+<li>
+case 後面不能放一個判斷式.
+</ul>
+
+範例:把上面判別成績等級的程式改用switch-case來寫
+<pre>
+#include < stdio.h >
+
+void main(void)
+{
+	int points;
+	int level;
+	char ans;
+	
+	printf("input your points:");
+	scanf("%d",&points);
+	level=points/10;
+	
+	switch( points )
+	{
+	case 10:
+	case 9:
+		ans='A';
+		break;
+	case 8:
+		ans='B';
+		break;
+	case 7:
+		ans='C';
+		break;
+	case 6:
+		ans='D';
+		break;
+	default:
+		ans='E';
+		break;
+	}
+	printf("You get %c\n",ans);
+}
+</pre>
+
+<h3>第三節:IF判斷式的精簡寫法</h3>
+if ( ) 括號中, 不一定要放一個判斷式進去, 我們可以直接代入一個數值,
+當數值是0時, if 就不會成立, 當數值不是0時, if 就會成立.<br>
+
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int a=5;
+	
+	// 只要a的數值不是0, 下面的if就會成立
+	if ( a )
+	{
+		printf("TRUE\n");
+	}
+	else
+	{
+		printf("FALSE\n");
+	}
+}
+</pre>
+
+事實上, 邏輯判斷式都會留下一個數字, 1代表True(成立), 0代表False(不成立)<br>
+範例:
+<pre>
+void main(void)
+{
+	int a=(10>5); // a=1, 因為10確實>5
+	int b=(10<5); // b=0, 因為10不<5
+}
+</pre>
+
+所以, 本章的第一個範例可以改寫如下:
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int weight;
+	int logic;
+	scanf("%d", &weight);
+	logic=(weight>100);
+	if ( logic )
+	{
+	// 當weight值>100時, { }中的printf就會執行
+		printf("You're too fat\n");
+	}
+}
+</pre>
+第二個範例可以改寫如下
+<pre>
+void main(void)
+{
+	int weight;
+	int height;
+	int logic1;
+	int logic2;
+	
+	printf("Input your height and weight\n");
+	scanf("%d %d", &height, &weight);
+	
+	logic1 = (height<180);
+	logic2 = (weight>100);
+	if ( logic1 && logic2 )
+	// 這裏變成, 當logic1和logic2都是非0的數字時,if就會成立              
+	{
+		printf("You're too fat.\n");
+	}
+	else
+	{
+		printf("You're ok.\n");
+	}
+}
+</pre>
+不要跟邏輯運算弄混了, 仔細看下面的例子:
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int a=4; // a=0100b
+	int b=8; // b=1000b
+	
+	// 這裏是看說, 如果a和b都不是0,判斷就成立. 在此時會成立.
+	if ( a && b )
+	{
+		printf("True\n");
+	}
+	else
+	{
+		printf("False\n");
+	}
+	
+	// 這裏會先算出 a & b 的位元運算結果, 再去看算出來的結果會不會是0
+	// 0100b & 1000b = 0000b = 0, 所以判斷不會成立
+	if ( a & b )
+	{
+		printf("True\n");
+	}
+	else
+	{
+		printf("False\n");
+	}
+}
+</pre>
+
+<h3>第四節:GOTO</h3>
+流程控制中, 有一個很有威力的語法叫做GOTO. 直接看一個例子.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i;
+	
+	printf("How much money you can make in one day?");
+	scanf("%d",&i);
+
+	if ( i>500 ) 
+		goto RICH;
+		// 找到名字叫做"RICH"的那一行程式碼去繼續執行程式.
+	else
+		goto NOMONEY;
+		// 找到名字叫做"NOMONEY"的那一行程式碼去繼續執行程式.
+		
+
+ //這個"RICH:"不算是程式碼, 它是用來取名字. 意思是說這一行程式碼給了它一個名字叫做"RICH"
+	RICH:  printf("You're rich\n");
+	       goto END;
+	NOMONEY:  printf("You're not rich\n");
+
+	END:  printf("finish\n");
+}
+</pre>
+goto所要跳躍的目的地並不一定要在目前執行當中程式碼所在地的後面, 前面也行.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i=10;
+	LOOPSTART: printf("%d\n",i--); 
+	if ( i>0 ) goto LOOPSTART;
+		// LOOPSTART這一行就在上面
+}
+</pre>
+goto雖然很有威力, 但是用太多很容易讓程式變得"不結構化".

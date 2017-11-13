@@ -1,0 +1,260 @@
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
+<title>第三章:迴圈</title>
+</HEAD>
+
+<h2 align=center>第三章:迴圈</h2>
+<h3>第一節:for迴圈</h3>
+當程式需要來回重複執行某一段程式碼時, 就可以使用迴圈<br>
+範例:印出10行hello
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i;
+	for ( i=0; i<10; i++ )
+	{
+		printf("hello %d\n",i);
+	}
+}
+</pre>
+for迴圈會重複執行數次{ }中所包含的程式碼,
+至於是執行幾次則由for (  ;   ;  )當中的東西來決定.
+它裏面所要放的東西是:
+for ( 進入迴圈前要做的事; 繼續執行迴圈的條件; 每跑完一次迴圈會做的事 )<p>
+所以, 在上面的例子中, 進入迴圈前會做i=0;當i<10的時候, 迴圈會繼續跑; 迴圈每
+跑完一圈, 就會做i++的動作.執行程式時可以看到i由一開始的0會每次都累加上1.
+到最後變成10之後就結束程式.<p>
+迴圈當然不是都用來做上面那種無聊的東西, 看個例子:<br>
+範例:算出1+2+3+....+99+100
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i;
+	int sum=0;	
+	for ( i=1; i<=100; i++ )
+	{
+		sum+=i;
+	}
+	printf("%d\n",sum);
+}
+</pre>
+範例:算出n!=1*2*3*....n
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int n;
+	int i;
+	int sum=1;
+	scanf("%d",&n);
+	for ( i=1; i<=n; i++ )
+	{
+		sum*=i;
+	}
+	printf("%d\n",sum);
+}
+</pre>
+迴圈{}當中可以寫任何的程式碼, 所以也可以再放進一個迴圈
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i,j;
+	for ( i=0; i<3; i++ )
+	{
+		for ( j=0; j<3; j++ )
+		{
+			printf("(%d,%d)\n",i,j);
+		}
+	}
+}
+</pre>
+<h3>第二節:WHILE迴圈</h3>
+for迴圈通常是用在迴圈要跑的次數事先可以預料的情形下, 
+不過它的語法並沒有做這個限制. 如果把for( ; ; )中的一些東西拿
+掉, 就可以做到不能事先預料迴圈次數的程式<br>
+範例:寫一個程式能夠不斷的讀入一個鍵, 一直到鍵入q就結束程式.
+<pre>
+#include < stdio.h >
+#include < conio.h >
+void main(void)
+{
+	char key='y'; // 這只是為了讓key值不為'q'
+	for( ; key!='q'; )
+	// 這個for只留下邏輯判斷, 符合條件時for才會繼續跑
+	{
+		key=getche();
+	}
+}
+</pre>
+語法上, 這種"不一定會跑幾次"的迴圈都用while來寫作.
+<pre>
+#include < stdio.h >
+#include < conio.h >
+void main(void)
+{
+	char key='y';
+	while(key!='q')
+	// while中只有邏輯判斷, 符合條件時while才會繼續跑
+	{
+		key=getche();
+	}
+}
+</pre>
+前面計算1+2+3....+99+100的程式改用while寫長相如下:
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i=1;
+	int sum=0;
+	while( i<=100 )
+	{
+		sum+=i;
+		i++;
+	}
+	printf("%d\n",sum);
+}
+</pre>
+while迴圈中的判斷式可以放在迴圈的最後端, 形成一個do-while迴圈. 
+這樣子的迴圈最少會跑一次.
+<pre>
+#include < conio.h >
+void main(void)
+{
+	char key;
+	do 
+	{
+		key=getche();
+	}
+	while(key!='q');
+	// 把要不要繼續跑迴圈的條件判斷放在迴圈最後端, 迴圈保證最少一定會跑一次.
+}
+</pre>
+<h3>第三節:迴圈中的流程控制</h3>
+在迴圈當中, 可以設定在某些情形下就直接結束迴圈(break), 或者是
+直接跳到迴圈開頭處繼續執行(continue).<br>
+範例:用break改寫上一個範例
+<pre>
+#include < conio.h >
+void main(void)
+{
+	char key;
+	do
+	{
+		key=getche();
+		// 當key為q時, 就break, 跳出迴圈
+		if ( key=='q' )
+			break;
+	} while( 1 );
+	// 這裏的判斷會讓迴圈一直執行
+}
+</pre>
+在while迴圈中, 經常會使用到上面的語法, 再看continue的用法<p>
+範例:國內的百貨公司有都沒有4樓這個樓層, 寫一個程式來模擬從一樓坐
+電梯到10樓的情形.
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i;
+	for ( i=1; i<=10; i++ )
+	{
+		// 若是4樓就跳過, 回到迴圈開頭繼續執行
+		if ( i==4 )
+			continue;
+		printf("floor %d\n",i);
+	}
+}
+</pre>
+上面這個程式會跳過"floor 4", 印出其它的樓層.
+
+<h3>第四節:迴圈的應用</h3>
+範例1:印出一個整數的實際二進位數字長相
+<pre>
+#include < stdio.h >
+
+void main(void)
+{
+	int num;
+	int bitloc;
+	int mask;
+
+	printf("Input a num:");
+	scanf("%d",&num);
+	
+	// 迴圈按照31, 30 .... 1, 0的排列來執行
+	for ( bitloc=31; bitloc>=0; bitloc-- )
+	{
+		mask=1 << bitloc;
+		// 當mask & num的位元計算結果不為0時, 代表第bitloc個位元是1
+		if ( mask & num )
+		{
+			putchar('1');
+		}
+		else
+		{
+			putchar('0');
+		}
+	}
+	putchar('\n');
+}
+</pre>
+範例2:費氏數列的定義為
+<blockquote>
+<pre>
+f(1)=0;
+f(2)=1;
+最前面2個數字是固定的. 第3個數字之後的定義為
+f(3)=f(2)+f(1);
+f(4)=f(3)+f(2);
+......
+......
+f(n)=f(n-1)+f(n-2);
+</pre>
+</blockquote>
+用程式來計算出f(1)----f(10)的數列來
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int fn_2=0;
+	int fn_1=1;
+	int fn;
+	int i;
+
+	printf("f(1)=0\nf(2)=1\n");
+	// 第1,2個數例已知, 是定值, 從第3個數字開始計算
+	for ( i=3; i<=10; i++ )
+	{
+		// 照定義f(n)=f(n-1)+f(n-2)
+		fn=fn_1+fn_2;
+		// 印出f(n)
+		printf("f(%d)=%d\n",i,fn);
+		// 下次的迴圈中, f(n-2)是現在的f(n-1)
+		fn_2=fn_1;
+		// 下次的迴圈中, f(n-1)是現在的f(n)
+		fn_1=fn;
+	}
+}
+</pre>
+範例3:用迴圈印出99乘法表
+<pre>
+#include < stdio.h >
+void main(void)
+{
+	int i,j,k;
+
+	for ( i=1; i<=9; i++ )
+	{
+		for ( j=1; j<=9; j++ )
+		{
+			k=i*j;
+			printf("%d * %d = %2d\t",i,j,k);
+		}
+		printf("\n");
+	}
+}
+</pre>
