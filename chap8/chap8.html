@@ -1,43 +1,45 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>�ĤK��:�ɮ�</title>
+<title>第八章:檔案</title>
 </HEAD>
 
-<h2 align=center>�ĤK��:�ɮ�</h2>
-<h3>�Ĥ@�`:����</h3>
-�ϥο�X��V�ӧ�printf�����G���@���ɮפ�, ���N��O��²�檺�g�ɮפ覡�F.
-��X��V���u�@, �i�H�ѵ{���X�ӧ���.
+<h2 align=center>第八章:檔案</h2>
+<h3>第一節:概論</h3>
+使用輸出轉向來把printf的結果轉到一個檔案中, 其實就算是最簡單的寫檔案方式了.
+輸出轉向的工作, 可以由程式碼來完成.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
 
 void main(void)
 {
-	FILE *output; // �Ψӫ��V�@�ӿ�X����m
-	output=fopen("test.txt","wt"); // ��1�ӰѼƬO�ɦW, ��2�ӰѼƬO�}���ɮת��Ҧ�, w�Nwrite, t�Ntext
+	FILE *output; // 用來指向一個輸出的位置
+	output=fopen("test.txt","wt"); // 第1個參數是檔名, 第2個參數是開啟檔案的模式, w代write, t代text
 	fprintf( output, "hello\n");
 }
 </pre>
-���, C�禡�w���w�g�ŧi�n3��FILE *������, ���O�Ostdin, stdout, stderr.<br>
-printf("...")�ƹ�W�O�I�sfprintf( stdout, "....").<br>
-scanf("...")�ƹ�W�O�I�sfsanf( stdin, "..." ).<br>
-fprintf( stderr, "....")�ҦL�b�ù��W���F�褣�|�Q��X��V�Ҽv�T.<p>
-�ɮת��x�s�覡�q�`�������. "��r��"�M"�G�i����"<br>
-��r�ɤ��s�񪺪F�賣�O�ײ��i�����^��r���μƦr�Ÿ���.<br>
-�G�i���ɬO��ƭȪ����e��ʤ��ʨϥΥ����G�i��覡�����x�s�U��<br>
-�|��:
+其實, C函式庫中已經宣告好3個FILE *的指標, 分別是stdin, stdout, stderr.<br>
+printf("...")事實上是呼叫fprintf( stdout, "....").<br>
+scanf("...")事實上是呼叫fsanf( stdin, "..." ).<br>
+fprintf( stderr, "....")所印在螢幕上的東西不會被輸出轉向所影響.<p>
+檔案的儲存方式通常分成兩種. "文字檔"和"二進位檔"<br>
+文字檔中存放的東西都是肉眼可視的英文字母或數字符號等.<br>
+二進位檔是把數值的內容原封不動使用它的二進位方式直接儲存下來<br>
+舉例:
 <pre>
 int a=100000
-�Y�Τ�r�ɨӦs, �s�U�Ӫ��|�O"100000"�o�Ӧr��, ��7��byte
-�Y�ΤG�i���ɨӦs, �s�U�Ӫ��O0x186A0�����G�i���, �T�w��4��byte.
-�]��int���A�N�O�e4��byte.
+若用文字檔來存, 存下來的會是"100000"這個字串, 佔7個byte
+若用二進位檔來存, 存下來的是0x186A0的的二進位值, 固定佔4個byte.
+因為int型態就是占4個byte.
 </pre>
-�ɮת�Ū�g�覡�]�������. �`��Ū�g�M�H��Ū�g.
-�`��Ū�g�N�OŪ/�g�ɮ׬O, �N�O�T�w���g��1�Ӧ�m, �A�g��2�Ӧ�m......��n-1, ��n.<br>
-�H��Ū�g�h�i�H�V�}�C�@��, �H�ɥhŪ/�g���@�Ӧ�m.
-<h3>�ĤG�`:��r��</h3>
-�ϥΤ�r�ɮɪ���ӥD�n�禡�N�Ofprintf/fscanf.<br>
-���̪��Ϊk�Mprintf/scanf�X�G�����@��, �u�t�b�ݭn���w����input/output���ӷ�/�ؼ�.
+檔案的讀寫方式也分成兩種. 循序讀寫和隨機讀寫.
+循序讀寫就是讀/寫檔案是, 就是固定先寫第1個位置, 再寫第2個位置......第n-1, 第n.<br>
+隨機讀寫則可以向陣列一樣, 隨時去讀/寫任一個位置.
+<h3>第二節:文字檔</h3>
+使用文字檔時的兩個主要函式就是fprintf/fscanf.<br>
+它們的用法和printf/scanf幾乎完全一樣, 只差在需要指定它們input/output的來源/目標.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -61,10 +63,10 @@ void main(void)
 	fclose(output);
 }
 </pre>
-�q�`, �b�I�sfclose���e, �ɮת����e���|�u�����Q�g��Ϻо��W. �Y�n�j�����W�g�J, �i�H�I�s
-fflush(FILE *)�Ӱ���.<br>
-�յ�trace�U�����j��, �|�o�{�ä��O�C���@��fprintf�N�|���F��Q�g���ɮפ�. �ӬO�I�sfclose��
-�~�@�f���Ҧ��F�賣�u���g���ɮפ�.
+通常, 在呼叫fclose之前, 檔案的內容不會真正的被寫到磁碟機上. 若要強迫馬上寫入, 可以呼叫
+fflush(FILE *)來做到.<br>
+試著trace下面的迴圈, 會發現並不是每做一個fprintf就會有東西被寫到檔案中. 而是呼叫fclose後
+才一口氣把所有東西都真正寫到檔案中.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -80,7 +82,7 @@ void main(void)
 	fclose(output);
 }
 </pre>
-�C����@��fflush�N�|��s�@���ɮת����e.
+每執行一個fflush就會更新一次檔案的內容.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -97,10 +99,10 @@ void main(void)
 	fclose(output);
 }
 </pre>
-���Ffprintf/fscanf, ��r���٦�fputc/fgetc�i�H��, �Ϊk�Mputc/getc�X�G�@��.�N���ΦA�h���F.
+除了fprintf/fscanf, 文字檔還有fputc/fgetc可以用, 用法和putc/getc幾乎一樣.就不用再多說了.
 
-<h3>�ĤT�`:�G�i����</h3>
-fopen��, �}�Ҫ��Ҧ��r�ꤤ�p�G��2�Ӧr���Ob, ���N�|�}�Ҥ@�ӤG�i����.
+<h3>第三節:二進位檔</h3>
+fopen時, 開啟的模式字串中如果第2個字母是b, 那就會開啟一個二進位檔.
 <pre>
 #include < stdio.h >
 
@@ -113,7 +115,7 @@ void main(void)
 	fclose(output);
 }
 </pre>
-Ū�g�G�i���ɭn���O��fread/fwrite�Ӱ�.
+讀寫二進位檔要分別用fread/fwrite來做.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -132,7 +134,7 @@ void main(void)
 	fclose(input);
 }
 </pre>
-�ΤG�i���ɥi�H�ܧ֪�Ū/�g�J�@�ռƦC
+用二進位檔可以很快的讀/寫入一組數列
 <pre>
 #include < stdio.h >
 #define N 10
@@ -141,18 +143,18 @@ void main(void)
 	int data[N];	
 	int get[N];
 	int i;
-	FILE *file=fopen("data.bin","wb"); //�}���ɮרӼg
+	FILE *file=fopen("data.bin","wb"); //開啟檔案來寫
 	for ( i=0; i < N; i++ )
 	{
 		data[i]=i;
 	}
 	fwrite(data,sizeof(int),N,file);
-	// fwrite�i�H�@����ƭ�bytes����Ƽg�J�ɮ�
+	// fwrite可以一次把數個bytes的資料寫入檔案
 	fclose(file);
 
-	file=fopen("data.bin","rb"); // �}���ɮר�Ū
+	file=fopen("data.bin","rb"); // 開啟檔案來讀
 	fread(get, sizeof(int),N,file);
-	// fread�i�H�@����ƭ�bytes�����Ū�J�O���餤
+	// fread可以一次把數個bytes的資料讀入記憶體中
 	for ( i=0; i < N; i++ )
 	{
 		printf("%d ",get[i]);
@@ -161,9 +163,9 @@ void main(void)
 	fclose(file);
 }
 </pre>
-struct�g���|�ϥΦb�ɮ�Ū�g��.
-�|��, ���p�{�b�q�n�@���ɮ׵��c�ΨӰO�����Z�P�Ǫ��򥻸��, �C�ӦP�ǻݭn�O������Ʀ��m�W, ����, �魫, �~��.
-�m�W�b20�r���H�U, �����魫����float�ӰO, �~�֥ξ�ƨӰO��. 
+struct經當會使用在檔案讀寫中.
+舉例, 假如現在訂好一個檔案結構用來記錄全班同學的基本資料, 每個同學需要記錄的資料有姓名, 身高, 體重, 年齡.
+姓名在20字母以下, 身高體重都用float來記, 年齡用整數來記錄. 
 <pre>
 #include < stdio.h >
 
@@ -183,7 +185,7 @@ void main(void)
 	fclose(file);
 }
 </pre>
-�p�G���ϥ�struct, ���{���g�_�ӷ|�ܦ��U�����ˤl.
+如果不使用struct, 那程式寫起來會變成下面的樣子.
 <pre>
 #include < stdio.h >
 
@@ -202,8 +204,8 @@ void main(void)
 	fclose(file);
 }
 </pre>
-<h3>�ĤT�`:�`���ɪ��ϥ�</h3>
-�d��:�g�@�@������dos���Otype��Ū�ɵ{��
+<h3>第三節:循序檔的使用</h3>
+範例:寫作一個類似dos指令type的讀檔程式
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -227,13 +229,13 @@ void main(int argc, char *argv[])
 	}
 }
 </pre>
-�U�����ɮ׬O���Z50��P�Ǫ����Ҹզ��Z, �յ�Ū�J��, �ú�X���Z���������Z.
+下面的檔案是全班50位同學的的考試成績, 試著讀入它, 並算出全班的平均成績.
 <a href="data.txt">data.txt</a><br>
-�U���O�t�@�خ榡���ɮ�, �P�ˬO50��P�Ǫ����Z, �ժ�Ū�J��, �ú�X���Z�P�Ǫ��������Z.
+下面是另一種格式的檔案, 同樣是50位同學的成績, 試者讀入它, 並算出全班同學的平均成績.
 <a href="data2.txt">data2.txt</a><br>
 
-<h3>�ĥ|�`:�H��Ū���ɪ��ϥ�</h3>
-�d��:�g�@�@������copy���{��.
+<h3>第四節:隨機讀取檔的使用</h3>
+範例:寫作一個類似copy的程式.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -246,7 +248,7 @@ void main(int argc, char *argv[])
 		printf("Usage:%s source dest\n",argv[0]);
 		exit(0);
 	}
-	// �}���ɮ�
+	// 開啟檔案
 	if( (input=fopen(argv[1],"rb"))==NULL )
 	{
 		printf("open %s fail!\n",argv[2]);
@@ -260,26 +262,26 @@ void main(int argc, char *argv[])
 	fseek( input, 0, SEEK_END);
 	filelen = ftell( input );
 	fseek( input, 0, SEEK_SET);
-	unsigned char *data=new unsigned char[filelen]; // �t�m�@���i�HŪ����ɮת��Ŷ�
-	fread( data, 1, filelen, input ); // �����ɮ�Ū�i�O����
-	fwrite( data, 1, filelen, output ); // �����ɮ׼g��t�@���ɮפ�
+	unsigned char *data=new unsigned char[filelen]; // 配置一塊可以讀整個檔案的空間
+	fread( data, 1, filelen, input ); // 把整個檔案讀進記憶體
+	fwrite( data, 1, filelen, output ); // 把整個檔案寫到另一個檔案中
 	fclose( input );
 	fclose( output );
 }
 </pre>
-fseek�O�H��Ū���Ϊ��禡.
+fseek是隨機讀取用的函式.
 fseek( FILE *, location, from_where );<br>
-from_where�i�H�N�J<br>
-SEEK_SET��Ū�g��m�]�w���q�ɮ׶}�Y�}�l�V��⪺��location�Ӧ�m.(�ҥHlocation�n>=0�~���N�q)<br>
-SEEK_END��Ū�g��m�]�w���q�ɮ׵����}�l�V��⪺��location�Ӧ�m.(�ҥHlocation�n<=0�~���N�q)<br>
-SEEK_CUR��Ū�g��m�]�w���q�ɮץثeŪ����m�}�l�V��⪺��location�Ӧ�m.(�ҥHlocation<0�|�V�e��, location>0�V�Ჾ)<br>
-ftell�|�Ǧ^�ثe�ɮת�Ū�g��m.<br>
-�ҥH, �U�����ʧ@�i�H�o���ɮת�����.<br>
+from_where可以代入<br>
+SEEK_SET把讀寫位置設定成從檔案開頭開始向後算的第location個位置.(所以location要>=0才有意義)<br>
+SEEK_END把讀寫位置設定成從檔案結尾開始向後算的第location個位置.(所以location要<=0才有意義)<br>
+SEEK_CUR把讀寫位置設定成從檔案目前讀取位置開始向後算的第location個位置.(所以location<0會向前移, location>0向後移)<br>
+ftell會傳回目前檔案的讀寫位置.<br>
+所以, 下面的動作可以得知檔案的長度.<br>
 <pre>
-fseek( input, 0, SEEK_END); // ����Ū�g��m�����ɧ�
-filelen = ftell( input );   // �A�Ǧ^�ɮץثe��Ū�g��m
+fseek( input, 0, SEEK_END); // 先把讀寫位置移到檔尾
+filelen = ftell( input );   // 再傳回檔案目前的讀寫位置
 </pre>
-�d��:���@���ɮ�(<a href="points.bin">points.bin</a>)�ξ�ưO�����Z50��P�Ǫ����Z, �g�@�{�����ϥΪ̬d�M�ǥͦ��Z
+範例:有一個檔案(<a href="points.bin">points.bin</a>)用整數記錄全班50位同學的成績, 寫一程式讓使用者查尋學生成績
 <pre>
 #include < iostream.h >
 #include < stdio.h >
