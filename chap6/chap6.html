@@ -1,12 +1,14 @@
+<!DOCTYPE html>
+
 <HEAD>
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=x-x-big5">
-<title>�Ĥ���:����</title>
+<title>第六章:指標</title>
 </HEAD>
 
-<h2 align=center>�Ĥ���:����</h2>
-<h3>�Ĥ@�`:����²��</h3>
-�@�륿�`���ܼ�, �x�s�����O�{�������ΨӰO���άO���p��Ϊ��ƭ�.
-���ܼƪ����e�x�s���O�t�@���ܼƪ��O�����}�Ȯ�, �N�i�H�s���O����.
+<h2 align=center>第六章:指標</h2>
+<h3>第一節:指標簡介</h3>
+一般正常的變數, 儲存的都是程式當中用來記錄或是做計算用的數值.
+當變數的內容儲存的是另一個變數的記憶體位址值時, 就可以叫它是指標.
 <pre>
 #include < stdio.h >
 
@@ -14,20 +16,20 @@ void main(void)
 {
 	char string[]="Input an integer";
 	int  p1=(int) &string;
-	//   p1�]�w����string���O����Ҧb��m����
+	//   p1設定成為string的記憶體所在位置的值
 	int  a;
 	int  p2=(int) &a;
-	//   p2�]�w�����ܼ�a���O����Ҧb��m����
+	//   p2設定成為變數a的記憶體所在位置的值
 
 	printf("%s\n",p1);
-	//            ^^�o�˼g�P�˥i�H�L�X�r��string
+	//            ^^這樣寫同樣可以印出字串string
 	scanf("%d",p2);
-	//   ���S���o�{, p2�e���S���A�h����}, �]���������N�O���Fa����}
+	//   有沒有發現, p2前面沒有再去取位址, 因為它本身就記錄了a的位址
 	printf("I get %d\n",a);
-	//   ��Ʒ|Ū���ܼ�a��.
+	//   資料會讀到變數a中.
 }
 </pre>
-�@�뻡��, ���|�Τ@�ӥ��`���ܼƥh�x�s�t�@���ܼƪ��O�����}��. �o�بƱ��N�O�ѫ��ШӰ�.
+一般說來, 不會用一個正常的變數去儲存另一個變數的記憶體位址值. 這種事情就是由指標來做.
 <pre>
 #include < stdio.h >
 
@@ -35,27 +37,27 @@ void main(void)
 {
 	char string[]="Input an integer";
 	char *p1;
-	//   �ŧi�@�ӫ��Vchar���A������
+	//   宣告一個指向char型態的指標
 	int  a;
 	int  *p2;
-	//   �ŧi�@�ӫ��Vint���A������
+	//   宣告一個指向int型態的指標
 
 	p1=string;
-	//   p1�]�w����string���O����Ҧb��m����
+	//   p1設定成為string的記憶體所在位置的值
 	p2=&a;
-	//   p2�]�w�����ܼ�a���O����Ҧb��m����
+	//   p2設定成為變數a的記憶體所在位置的值
 
 	printf("%s\n",p1);
-	//            ^^�o�˼g�P�˥i�H�L�X�r��string
+	//            ^^這樣寫同樣可以印出字串string
 	scanf("%d",p2);
-	//   ���S���o�{, p2�e���S���A�h����}, �]���������N�O���Fa����}
+	//   有沒有發現, p2前面沒有再去取位址, 因為它本身就記錄了a的位址
 	printf("I get %d\n",a);
-	//   ��Ʒ|Ū���ܼ�a��.
+	//   資料會讀到變數a中.
 }
 </pre>
-�ѤW������ӨҤl, �ڭ̥i�H²�檺�k�Ǧp�U:���дN�O�@�ӱM���ΨӰO���䥦�ܼƪ��O�����}�Ȫ��ܼ�<br>
-���L, �Ĥ@�ӨҤl�P�˥i�H�Ѥ@�ӥ��`������ܼƨӰ�����Ъ��ĪG, �ڭ̬������ٻݭn����?<br>
-�����ݤU�����Ҥl�N�i�H�����F
+由上面的兩個例子, 我們可以簡單的歸納如下:指標就是一個專門用來記錄其它變數的記憶體位址值的變數<br>
+不過, 第一個例子同樣可以由一個正常的整數變數來做到指標的效果, 我們為什麼還需要指標?<br>
+直接看下面的例子就可以說明了
 <pre>
 #include < stdio.h >
 
@@ -63,15 +65,15 @@ void main(void)
 {
 	int a=2;
 	int *b=&a; 
-	// �o��int *b; b=&a;���ĪG�@��.
+	// 這跟int *b; b=&a;的效果一樣.
 	*b=3;
-	// b�O�����O&a, a���O����Ҧb��m. 
-	// *b���N��O, �n�]�w�ƭȮ�, ��b�ҰO�����ӰO�����}���h�]�w�ƭ�
+	// b記錄的是&a, a的記憶體所在位置. 
+	// *b的意思是, 要設定數值時, 到b所記的那個記憶體位址中去設定數值
 	printf("%d\n",a);
-	// �ҥH�i�H�o�{a���ƭȳQ���ܤF.
+	// 所以可以發現a的數值被改變了.
 }
 </pre>
-�ϥΫ��Ю�, �h�F�@�ӥ[�P�����y�k�i�H��. ���u�b�]�w�ƭȮɥi�H��, �n���ƭȥX�Ӯɤ]�i�ϥ�.
+使用指標時, 多了一個加星號的語法可以用. 不只在設定數值時可以用, 要取數值出來時也可使用.
 <pre>
 #include < stdio.h >
 
@@ -79,16 +81,16 @@ void main(void)
 {
 	int a;
 	int *b=&a; 
-	// �o��int *b; b=&a;���ĪG�@��.
+	// 這跟int *b; b=&a;的效果一樣.
 	a=3;
 
 	printf("%d\n",*b);
-	// b�O�����O&a, a���O����Ҧb��m. 
-	// *b���N��O, �n���X�ƭȮ�, ��b�ҰO�������ӰO�����}���h���ƭ�
+	// b記錄的是&a, a的記憶體所在位置. 
+	// *b的意思是, 要取出數值時, 到b所記錄的那個記憶體位址中去取數值
 }
 </pre>
-<h3>�ĤG�`:��������</h3>
-���Шä��@�w�n���V�@�Ӥw�g�s�b���ܼ�, �i�H�����V�@�~�t�Υh�n�D�@���s���O����Ŷ�, �A���V�o�Ӧ�}.
+<h3>第二節:指標應用</h3>
+指標並不一定要指向一個已經存在的變數, 可以直接向作業系統去要求一塊新的記憶體空間, 再指向這個位址.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -97,13 +99,13 @@ void main(void)
 {
 	int *a;
 	a=(int *)malloc(sizeof(int));
-	// �V�@�~�t�έn�Dsizeof(int)��byte���Ŷ��Өϥ�.
+	// 向作業系統要求sizeof(int)個byte的空間來使用.
 	*a=3;
-	// ��ƭ�3�����o�쪺�O����Ŷ���
+	// 把數值3放到剛剛得到的記憶體空間中
 	printf("%d\n",*a);
 }
 <pre>
-��C++���ߺD�|��new�ӦV�@�~�t�έn�D�O����Ŷ�.
+用C++的習慣會用new來向作業系統要求記憶體空間.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -112,12 +114,12 @@ void main(void)
 {
 	int *a;
 	a=new int;
-	// C++�ߺD�ϥ�new�ӭn�D�O����Ŷ�.
+	// C++習慣使用new來要求記憶體空間.
 	*a=3;
 	printf("%d\n",*a);
 }
 </pre>
-�٥i�H�@���n�@�j���Ŷ��Өϥ�.
+還可以一次要一大塊空間來使用.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -131,7 +133,7 @@ void main(void)
 	printf("size=");
 	scanf("%d",&size);
 	a=(int *)malloc( sizeof(int)*size );
-	// �h�n�D�@��sizeof(int)*size��bytes���Ŷ�
+	// 去要求一塊sizeof(int)*size個bytes的空間
 	for ( i=0; i < size; i++ )
 	{
 		*(a+i)=i;
@@ -139,10 +141,10 @@ void main(void)
 	}
 }
 </pre>
-a+1�ƹ�W�����Oa+1*sizeof(int), a+2=a+1*sizeof(int), a+i=a+i*sizeof(int).<br>
-�ҥHa+i�����Oa�o�Ӧ�}���i�Ӿ�ƪ��O����Ҧb��m.
-*(a+i)�����N�O�b*a�����i�Ӿ�ƪ���, *(a+i)�i�H�g��a[i].
-�ҥH, ���V�@�j���Ŷ�������, �i�H�⥦�����}�C�ӥ�.<p>
+a+1事實上指的是a+1*sizeof(int), a+2=a+1*sizeof(int), a+i=a+i*sizeof(int).<br>
+所以a+i指的是a這個位址後第i個整數的記憶體所在位置.
+*(a+i)指的就是在*a之後第i個整數的值, *(a+i)可以寫成a[i].
+所以, 指向一大塊空間的指標, 可以把它當成陣列來用.<p>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -155,7 +157,7 @@ void main(void)
 	printf("size=");
 	scanf("%d",&size);
 	a=(int *)malloc( sizeof(int)*size );
-	// �h�n�D�@��sizeof(int)*size��bytes���Ŷ�
+	// 去要求一塊sizeof(int)*size個bytes的空間
 	for ( i=0; i < size; i++ )
 	{
 		a[i]=i;
@@ -163,7 +165,7 @@ void main(void)
 	}
 }
 </pre>
-C++���g�k�p�U:
+C++的寫法如下:
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -176,7 +178,7 @@ void main(void)
 	printf("size=");
 	scanf("%d",&size);
 	a=new int[size];
-	// �h�n�Dsize��int���A�j�p���O����Ŷ��Өϥ�
+	// 去要求size個int型態大小的記憶體空間來使用
 	for ( i=0; i < size; i++ )
 	{
 		a[i]=i;
@@ -184,7 +186,7 @@ void main(void)
 	}
 }
 </pre>
-�ߺD�W, �b�{�����椤�h�n�Ӫ��O����̦n���n���k�٪��ʧ@.
+習慣上, 在程式執行中去要來的記憶體最好都要做歸還的動作.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -197,15 +199,15 @@ void main(void)
 	printf("size=");
 	scanf("%d",&size);
 
-	a=(int *)malloc( sizeof(int)*size ); // �h�nsizeof(int)*size��bytes���O����
-	b=new int[size];					 // �h�n���size�Ӿ�ƪ��O�м�
+	a=(int *)malloc( sizeof(int)*size ); // 去要sizeof(int)*size個bytes的記憶體
+	b=new int[size];					 // 去要能放size個整數的記憶數
 	
-	free(a);	 //��malloc�n�Ӫ��O�����free���k��.
-	delete [] b; //��new�n�Ӫ��O�����delete���k��
+	free(a);	 //用malloc要來的記憶體用free來歸還.
+	delete [] b; //用new要來的記憶體用delete來歸還
 }
 </pre>
-�b�Y�Ǳ��ΤU, �n���{�������, �ڭ̤~�|���D�{���ݭnsize�h�֪��}�C�ӰO���ƭ�, �o�ɴN�n�ϥΫ���.<br>
-�d��:�ϥΪ̥���J�@�Z���X�Ӿǥ�, �A�@�@��J�ǥͪ��Ҹզ��Z.
+在某些情形下, 要等程式執行後, 我們才會知道程式需要size多少的陣列來記錄數值, 這時就要使用指標.<br>
+範例:使用者先輸入一班有幾個學生, 再一一輸入學生的考試成績.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -226,8 +228,8 @@ void main(void)
 	delete [] points;
 }
 </pre>
-�p�G�O�Υ��e���}�C�Ӱ�, �u��@�}�l�N�ŧi�@�ӶW�j���}�C, �ϥήɫo�i��u�ϥΰ}�C���@�p����.
-�o�ˤl�ϥΰO����O�ܮ��O��. �ӥB�٦��i��o�ͪ����άO�{���X�����}�C�j�p���ມ���ϥΪ̩һ�.<br>
+如果是用先前的陣列來做, 只能一開始就宣告一個超大的陣列, 使用時卻可能只使用陣列的一小部分.
+這樣子使用記憶體是很浪費的. 而且還有可能發生的情形是程式碼中的陣列大小不能滿足使用者所需.<br>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -240,7 +242,7 @@ void main(void)
 	int points[MAX_STUDENTS];
 	printf("How many students?");
 	scanf("%d",&students);
-	// �p�G�ǥͶW�X�w��, �N�]���U�h�F
+	// 如果學生超出預期, 就跑不下去了
 	if ( students > MAX_STUDENTS )
 	{
 		printf("Out of memory\n");
@@ -249,26 +251,26 @@ void main(void)
 	for ( int i=0; i < students; i++ )
 	{
 		printf("student %d=",i);
-		scanf("%d",points+i); // �Mscanf("%d", &points[i])�O�@�˪�
+		scanf("%d",points+i); // 和scanf("%d", &points[i])是一樣的
 	}
 }
 </pre>
-<h3>�ĤT�`:���Ыŧi�i��</h3>
-���Ф]�i�H�O�}�C����.
+<h3>第三節:指標宣告進階</h3>
+指標也可以是陣列指標.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
 #define SIZE 3
 void main(void)
 {
-	int *a[3]; // �ŧi3�ӥi�H���V��ƪ������ܼ�
+	int *a[3]; // 宣告3個可以指向整數的指標變數
 	int b=3;
 	int i;
 
-	a[0]=&b;	  // a[0]�O�@�ӫ���, �ҥH�i�H���V�t�@���ܼ�
-	a[1]=new int; // �����n�@�ӥi�H���ƪ��O����, a[1]�A���V��
+	a[0]=&b;	  // a[0]是一個指標, 所以可以指向另一個變數
+	a[1]=new int; // 直接要一個可以放整數的記憶體, a[1]再指向它
 	*a[1]=4;
-	a[2]=new int[SIZE]; // ���M�]�i�H�@���nsize�Ӿ�ƪ��O����ӥ�.
+	a[2]=new int[SIZE]; // 當然也可以一次要size個整數的記憶體來用.
 	 
 	for ( i=0; i < SIZE; i++ )
 		a[2][i]=i;
@@ -281,22 +283,22 @@ void main(void)
 	printf("\n");
 }
 </pre>
-�o�ثŧi�X�Ӫ��F��S���@�ˤF
+這種宣告出來的東西又不一樣了
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
 
 void main(void)
 {
-	int (*a)[2]; // ����a�Ψӫ��Vsize��2���@���}�C
+	int (*a)[2]; // 指標a用來指向size為2的一維陣列
 	int c[2][2]={1,2,3,4};
 	a=&c[0]; 
 	for ( int i=0; i < 4; i++ )
 		printf("%d\n",(*a)[i]);
 }
 </pre>
-���, ���`��, �ݬݴN��F.....<br>
-�����ܼƥi�H�O���n�X���P�P������.<p>
+其實, 不常用, 看看就算了.....<br>
+指標變數可以是有好幾顆星星的指標.<p>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -309,16 +311,16 @@ typedef int * PINT;
 void main(void)
 {
 	int i,j;
-	int **a; // �o�s�����Ъ�����.
+	int **a; // 這叫做指標的指標.
 
-	// �t�m�Ŷ�
+	// 配置空間
 	a=new PINT[ROW];
 	for ( i=0; i < ROW; i++ )
 	{
 		a[i]=new int[COL];
 	}
 
-	// �����ݬݯण���
+	// 測式看看能不能用
 	for ( i=0; i < ROW; i++ )
 	{
 		for ( j=0; j < COL; j++ )
@@ -329,7 +331,7 @@ void main(void)
 		printf("\n");
 	}
 	
-	// ��O�����٦^�h
+	// 把記憶體還回去
 	for ( i=0; i < ROW; i++ )
 	{
 		delete [] a[i];
@@ -337,8 +339,8 @@ void main(void)
 	delete [] a;
 }
 </pre>
-�W���o�쪺�G���}�C�ä��@�w�|�o��@�ӧ������t�m�b�P�@���O���骺�}�C.
-�U���O�t�~�@�ذʺA�ŧi�G���}�C����k, ���i�H���G���}�C����b�P�@���O���餤<p>
+上面得到的二維陣列並不一定會得到一個完全都配置在同一塊記憶體的陣列.
+下面是另外一種動態宣告二維陣列的方法, 它可以讓二維陣列都放在同一塊記憶體中<p>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -351,9 +353,9 @@ typedef int * PINT;
 void main(void)
 {
 	int i,j;
-	int **a; // �o�s�����Ъ�����.
+	int **a; // 這叫做指標的指標.
 
-	// �t�m�Ŷ�
+	// 配置空間
 	a=new PINT[ROW];
 	a[0]=new int[ROW*COL];
 	for ( i=1; i < ROW; i++ )
@@ -361,7 +363,7 @@ void main(void)
 		a[i]=a[0]+i*COL;
 	}
 
-	// �����ݬݯण���
+	// 測式看看能不能用
 	for ( i=0; i < ROW; i++ )
 	{
 		for ( j=0; j < COL; j++ )
@@ -372,12 +374,12 @@ void main(void)
 		printf("\n");
 	}
 	
-	// ��O�����٦^�h
+	// 把記憶體還回去
 	delete [] a[0];
 	delete [] a;
 }
 </pre>
-�e�@�ӵ{���M�U�����{����������.<p>
+前一個程式和下面的程式有些類似.<p>
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -390,7 +392,7 @@ typedef int * PINT;
 void main(void)
 {
 	int i,j;
-	int **a; // �o�s�����Ъ�����.
+	int **a; // 這叫做指標的指標.
 	int b[ROW][COL]={1,2,3,4,5,6,7,8,9};
 
 	a=new PINT[ROW];
@@ -399,7 +401,7 @@ void main(void)
 		a[i]=b[i];
 	}
 
-	// �����ݬݯण���
+	// 測式看看能不能用
 	for ( i=0; i < ROW; i++ )
 	{
 		for ( j=0; j < COL; j++ )
@@ -410,12 +412,12 @@ void main(void)
 		printf("\n");
 	}
 	
-	// ��O�����٦^�h
+	// 把記憶體還回去
 	delete [] a;
 }
 </pre>
-<h3>�ĥ|�`:�������ζi��</h3>
-�����Ы��V�@��struct��, �n����struct�����ܼƮɭn�[�W"->"�b�Y.
+<h3>第四節:指標應用進階</h3>
+當指標指向一個struct時, 要取用struct中的變數時要加上"->"箭頭.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -432,16 +434,16 @@ void main(void)
 	printf("(%f,%f)\n",p->x, p->y);
 }
 <pre>
-���F�ʺA�t�m�O����ӨϥΤ��~, �����٥i�H�Φb�إ�list, tree�����O�е��c�W. �n��list�Өϥ�, �̱`�Ϊ�
-��k�N�O�bstruct���ŧi�@�ӫ��V�P�˦ۤv���A�������ܼ�.<br>
-�d��:�@��²�檺list
+除了動態配置記憶體來使用之外, 指標還可以用在建立list, tree等的記憶結構上. 要建list來使用, 最常用的
+方法就是在struct中宣告一個指向同樣自己型態的指標變數.<br>
+範例:一個簡單的list
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
 
 struct List {
 	int content;
-	List *next; // �ΨӰO�����V�U�@��list������
+	List *next; // 用來記錄指向下一個list的指標
 };
 
 void main(void)
@@ -450,16 +452,16 @@ void main(void)
 	List list0,list1,list2;
 	List *current=&list0;
 
-	list0.content=0; list0.next=&list1; // �]�wcontent, �ç�U�@�Ӧ�m���Vlist1
-	list1.content=1; list1.next=&list2; // �]�wcontent, �ç�U�@�Ӧ�m���Vlist2
-	list2.content=2; list2.next=NULL;   // �]�wcontent, �]�w�����Ь�NULL�ɥN��list����.
+	list0.content=0; list0.next=&list1; // 設定content, 並把下一個位置指向list1
+	list1.content=1; list1.next=&list2; // 設定content, 並把下一個位置指向list2
+	list2.content=2; list2.next=NULL;   // 設定content, 設定當指標為NULL時代表list結束.
 	
-	printf("%d\n", list0.content);		// ��1��list�����e
-	printf("%d\n", list0.next->content);// ��2��list�����e
-	printf("%d\n", list0.next->next->content);// ��3��list�����e
+	printf("%d\n", list0.content);		// 第1個list的內容
+	printf("%d\n", list0.next->content);// 第2個list的內容
+	printf("%d\n", list0.next->next->content);// 第3個list的內容
 }
 </pre>
-�u���b��list��, ���|�ΤW������k, �U���~�O�嫬��list�ϥΤ�k.
+真正在建list時, 不會用上面的方法, 下面才是典型的list使用方法.
 <pre>
 #include < stdio.h >
 #include < stdlib.h >
@@ -496,9 +498,9 @@ void main(void)
 	}
 } 
 </pre>
-����ɭԷ|�ݭn�Ψ�list? �N�O���ݭn�O���F�誺�ƥؤ@�w�n���ϥΪ̤@�@��J�����~�|���D��, 
-�N�i�H�ϥ�list�Ӧ�_�C�@��O��.�����ݤU�����Ҥl:<br>
-�d��:�@�Ӥp����Ʈw, ��A�i�W�[�@�����, ��Q�|����.
+什麼時候會需要用到list? 就是當需要記錄東西的數目一定要等使用者一一輸入完畢才會知道時, 
+就可以使用list來串起每一比記錄.直接看下面的例子:<br>
+範例:一個小型資料庫, 按A可增加一筆資料, 按Q會結束.
 <pre>
 #include < stdio.h >
 #include < conio.h >
@@ -548,8 +550,8 @@ void main(void)
 	}
 }
 </pre>
-��list���F�i�`�ٰO���餧�~, �٦��@�I�ܤ�K���\��N�O�Φb���J��ƤΧR����Ʈ�.
-���ݬݨϥΰ}�C��, �p�G�n�R���@�Ӹ�Ʈ�, �n���.
+用list除了可節省記憶體之外, 還有一點很方便的功能就是用在插入資料及刪除資料時.
+先看看使用陣列時, 如果要刪除一個資料時, 要怎麼做.
 <pre>
 include < stdio.h >
 
@@ -582,8 +584,8 @@ void main(void)
 	printf("\n");
 }
 </pre>
-�b�}�C�����R�����ʧ@�n�ΰj��h���@�s��copy���ʧ@, �}�C�p�G�ܤj�ɷ|�ܨS���Ĳv.
-�p�G��ƬO��blist��, �n�R���@����ƫܮe��.<p>
+在陣列中做刪除的動作要用迴圈去做一連串copy的動作, 陣列如果很大時會很沒有效率.
+如果資料是放在list中, 要刪除一筆資料很容易.<p>
 <pre>
 #include < stdio.h >
 
@@ -615,13 +617,13 @@ void main(void)
 	printf("\ndelete what element?");
 	scanf("%d",&index);
 	
-	// list���వ��array�@�˰�random access, �����n�@�Ӥ@�ө����.
+	// list不能做像array一樣做random access, 必須要一個一個往後找.
 	current=&root;
 	for ( i=0; i < index-1; i++ )
 		current=current->next;
 
 	List *newnext = current->next->next;
-	delete current->next; // �o�Ӥ~�O�u���n�R�����F��
+	delete current->next; // 這個才是真正要刪除的東西
 	current->next=newnext;
 	
 	current=&root;
@@ -633,7 +635,7 @@ void main(void)
 	printf("\n");
 }
 <pre>
-list�p�G�n��random access����, �n�t�~�A�ŧi���ШӰ��O��.<p>
+list如果要做random access的話, 要另外再宣告指標來做記錄.<p>
 <pre>
 #include < stdio.h >
 
@@ -669,7 +671,7 @@ void main(void)
 		array[i] = current;
 		current = current->next;
 	}
-	// ��list�����C�@�Ӥ�������}���t�~�s�b�@�ӫ��а}�C��, �N�i�H��random access�F.
+	// 把list中的每一個元素的位址都另外存在一個指標陣列中, 就可以做random access了.
 	for ( i=0; i < N; i++ )
 	{
 		printf("List %d, content=%d\n", i, array[i]->content);
